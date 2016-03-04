@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="tpl_info.xsl" type="text/xsl"?>
+<!DOCTYPE tpl_info SYSTEM "tpl_info.dtd">
+<tpl_info>
+    <name>Candy</name>
+    <description>Template description</description>
+    <version>v 1.0</version>
+    <author>Author</author>
+    <license>GPL</license>
+</tpl_info>
