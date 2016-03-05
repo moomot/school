@@ -40,6 +40,11 @@ class Route
             $param_cnt = 0;
 
         $param_cnt += sizeof($routes);
+
+        if( $controller_name == 'static') {
+            $param = $action_name;
+            $action_name = 'page';
+        }
         if( $param_cnt >= 3 )
             Route::ErrorPage404();
 
@@ -48,11 +53,10 @@ class Route
         $controller_name = 'Controller_'.$controller_name;
         $action_name = 'action_'.$action_name;
 
-        /*
+        /*echo "Param: $param <br> ";
         echo "Model: $model_name <br>";
         echo "Controller: $controller_name <br>";
         echo "Action: $action_name <br>";*/
-
 
         // подцепляем файл с классом контроллера
         $controller_file = strtolower($controller_name).'.php';

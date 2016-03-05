@@ -6,9 +6,9 @@
  * Date: 1/30/16
  * Time: 9:17 PM
  */
-class Controller_Admin extends Controller
+class Controller_Cpanel extends Controller
 {
-    public $defaultPage = "admin";
+    public $defaultPage = "cpanel";
 
     function action_index()
     {

@@ -25,5 +25,5 @@
     </div>
 </div>
 <div class="bottom_link text-right">
-    <a href="<? echo $baseURI."/admin"; ?>" class="panel-link">Вхiд для автошколи</a>
+    <a href="<? echo $baseURI."/cpanel"; ?>" class="panel-link">Вхiд для автошколи</a>
 </div>

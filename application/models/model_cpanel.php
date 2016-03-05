@@ -6,7 +6,7 @@
  * Date: 1/12/16
  * Time: 6:33 PM
  */
-class Model_Admin extends Model
+class Model_Cpanel extends Model
 {
     /**
      * Save site settings to table "settings"

@@ -40,7 +40,7 @@ class View
     {
         $this->view = $view;
 
-        include PATH_SITE . '/application/views/admin/index.php';
+        include PATH_SITE . '/application/views/cpanel/index.php';
     }
 
     function getView() {
