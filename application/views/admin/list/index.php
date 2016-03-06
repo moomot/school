@@ -8,55 +8,30 @@
 ?>
 <div class="panel panel-default">
       <!-- Default panel contents -->
-      <div class="panel-heading">Список студентiв</div>
+      <div class="panel-heading">Список шкiл</div>
 
       <!-- Table -->
       <table class="table">
         <thead>
           <tr>
             <th>#</th>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Имя пользователя</th>
-              <th>Адрес</th>
+            <th>Логин</th>
+            <th>Название</th>
+            <th>Телефон</th>
           </tr>
         </thead>
         <tbody>
+        <? foreach ($data as $item) { ?>
           <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
+            <td><? echo $item['id']; ?></td>
+            <td><? echo $item['login']; ?></td>
+            <td><? echo $item['full_name']; ?></td>
+            <td><? echo $item['phone']; ?></td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
-          <tr>
-              <td>3</td>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
-          <tr>
-              <td>3</td>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
+        <? } ?>
         </tbody>
       </table>
     </div>
+<div class="text-center">
+    <a href="<? echo $baseURI; ?>/admin/add_school" class="btn btn-primary">Створити школу</a>
+</div>

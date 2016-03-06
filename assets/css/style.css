@@ -81,3 +81,6 @@ a img {border:0;}
 .reason {
     display: none;
 }
+.pm_buttons {
+    margin: 5px;
+}

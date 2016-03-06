@@ -23,7 +23,7 @@ ob_clean();
         <div class="row">
             <div class="center-block login-form">
                 <div class="well">
-                    <form class="form-signin" method="POST" action="<? echo $baseURI."/cpanel/login"; ?>" name="do_login">
+                    <form class="form-signin" method="POST" action="<? echo $baseURI."/admin/login"; ?>" name="do_login">
                         <h2 class="form-signin-heading">
                             <?php if($login_status=="access_denied"): ?>
                                 <p style="color:red">Неправильный логин или пароль</p>

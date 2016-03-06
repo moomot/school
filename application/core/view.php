@@ -36,11 +36,18 @@ class View
         }
     }
 
-    function generateAdminTpl($view, $data = null)
+    function generateCpTpl($view, $data = null)
     {
         $this->view = $view;
 
         include PATH_SITE . '/application/views/cpanel/index.php';
+    }
+
+    function generateAdminTpl($view, $data = null)
+    {
+        $this->view = $view;
+
+        include PATH_SITE . '/application/views/admin/index.php';
     }
 
     function getView() {

@@ -36,10 +36,6 @@ $prefix = $baseURI."/assets";
                [
                    "url" => "/cpanel/messages",
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Повiдомлення"
-               ],
-               [
-                   "url" => "/cpanel/settings",
-                   "content" => "<span class=\"glyphicon glyphicon-wrench\"></span> Налаштування"
                ]
            )->render("nav nav-pills nav-stacked");
            ?>

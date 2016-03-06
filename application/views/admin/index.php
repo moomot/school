@@ -26,19 +26,23 @@ $prefix = $baseURI."/assets";
            $nav = new Nav($baseURI);
            $nav->setModel(
                [
-                   "url" => '/cpanel',
+                   "url" => '/admin',
                    "content" => "<span class=\"glyphicon glyphicon-home\"></span> Головна"
                ],
                [
-                   "url" => "/cpanel/list",
-                   "content" => "<span class=\"glyphicon glyphicon-list\"></span> Список студентiв"
+                   "url" => "/admin/list",
+                   "content" => "<span class=\"glyphicon glyphicon-list\"></span> Список шкiл"
                ],
                [
-                   "url" => "/cpanel/messages",
+                   "url" => "/admin/messages",
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Повiдомлення"
                ],
                [
-                   "url" => "/cpanel/settings",
+                   "url" => "/admin/pages",
+                   "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Статичнi сторiнки"
+               ],
+               [
+                   "url" => "/admin/settings",
                    "content" => "<span class=\"glyphicon glyphicon-wrench\"></span> Налаштування"
                ]
            )->render("nav nav-pills nav-stacked");

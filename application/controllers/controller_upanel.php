@@ -14,7 +14,7 @@ class Controller_UPanel extends Controller
         if(Users::getLoginStatus()=="access_granted")
             $this->view->generate("users/lessons.php");
         else
-            $this->view->generate("users/access_denied.php");
+            $this->view->generate("users/login_form.php");
     }
 
     function action_lessons()
