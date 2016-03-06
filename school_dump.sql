@@ -1,6 +1,6 @@
 -- MySQL dump 10.16  Distrib 10.1.10-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: landing2
+-- Host: localhost    Database: school_cms
 -- ------------------------------------------------------
 -- Server version	10.1.10-MariaDB
 
@@ -14,6 +14,92 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `admins`
+--
+
+DROP TABLE IF EXISTS `admins`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admins` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(30) NOT NULL,
+  `password` text NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=cp1251;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `admins`
+--
+
+LOCK TABLES `admins` WRITE;
+/*!40000 ALTER TABLE `admins` DISABLE KEYS */;
+INSERT INTO `admins` VALUES (1,'admin','827ccb0eea8a706c4c34a16891f84e7b',1);
+/*!40000 ALTER TABLE `admins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `private_messages`
+--
+
+DROP TABLE IF EXISTS `private_messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `private_messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `user2_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `timestamp` int(10) NOT NULL,
+  `user_read` tinyint(1) NOT NULL DEFAULT '0',
+  `school_read` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=cp1251;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `private_messages`
+--
+
+LOCK TABLES `private_messages` WRITE;
+/*!40000 ALTER TABLE `private_messages` DISABLE KEYS */;
+INSERT INTO `private_messages` VALUES (1,1,1,'bla bla bla bla',1457304036,0,0),(2,6,1,'bla bla bla bla23432',1457304035,0,0);
+/*!40000 ALTER TABLE `private_messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schools`
+--
+
+DROP TABLE IF EXISTS `schools`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schools` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(25) DEFAULT NULL,
+  `address` text NOT NULL,
+  `password` text CHARACTER SET cp1250 NOT NULL,
+  `full_name` varchar(50) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `phone` varchar(20) NOT NULL,
+  `description` text NOT NULL,
+  `email` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=cp1251;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schools`
+--
+
+LOCK TABLES `schools` WRITE;
+/*!40000 ALTER TABLE `schools` DISABLE KEYS */;
+INSERT INTO `schools` VALUES (1,'myschool','big big big address','effc1aec7db3759b5ca360d35ce9826b','school full name',1,'0634872948','description of school',''),(6,'fsdfsdfsdkiko','333333333333333333','33333333333333333333333333333333','333333333333333333',1,'33333333333333333333','3333333333333333333333333333333333','moomot@ukr.net'),(7,'kiko','33333333333333333333','827ccb0eea8a706c4c34a16891f84e7b','33333333333333',1,'33333333333333333333','3333333333333','moomot@ukr.ne');
+/*!40000 ALTER TABLE `schools` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `settings`
@@ -70,28 +156,33 @@ INSERT INTO `static_pages` VALUES (1,'Про нас','Зеркала сдела�
 UNLOCK TABLES;
 
 --
--- Table structure for table `tabs`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `tabs`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tabs` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `identificator` varchar(30) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `content` text NOT NULL,
+  `login` varchar(25) DEFAULT NULL,
+  `firstname` varchar(30) DEFAULT NULL,
+  `lastname` varchar(30) DEFAULT NULL,
+  `address` text,
+  `school_id` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `password` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=cp1251;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tabs`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `tabs` WRITE;
-/*!40000 ALTER TABLE `tabs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tabs` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'user_login','user_firstname','user_lastname','user_address',6,1,'effc1aec7db3759b5ca360d35ce9826b');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -103,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-04 22:09:23
+-- Dump completed on 2016-03-07  1:05:17
