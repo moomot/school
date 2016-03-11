@@ -84,3 +84,6 @@ a img {border:0;}
 .pm_buttons {
     margin: 5px;
 }
+.list tr td:first-child {
+    font-weight: bold;
+}

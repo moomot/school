@@ -6,20 +6,29 @@
  * Time: 22:15
  */
 ?>
-<div class="row">
-    <div class="form-group col-sm-6">
-        <label for="name" class="h4">Iм`я</label>
-        <input type="text" class="form-control" id="name" placeholder="Введiть iм`я" required>
+
+<div class="row sendform col-lg-12">
+    <form action="" class="message_submit" method="post" accept-charset="utf-8">
+    <div class="form-group col-lg-12">
+        <input type="hidden" name="school_name" id="template" value="Оберiть автошколу">
+        <div class="dropdown settings-dropdown">
+            <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown"><span></span> <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="navbarDrop1">
+                <?
+                foreach ($data as $item) {
+                    echo '<li><a tabindex="-1">'.$item['login'].'</a></li>';
+                }
+                ?>
+            </ul>
+        </div>
     </div>
-    <div class="form-group col-sm-6">
-        <label for="email" class="h4">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Введiть email" required>
+    <div class="form-group col-lg-12">
+        <label for="message">Повiдомлення</label>
+        <textarea id="message" class="form-control" rows="5" placeholder="Напишiть повiдомлення" name="message" required></textarea>
     </div>
+    <div class="col-lg-12">
+        <input type="submit" class="btn btn-default btn-success pull-right" value="Надiслати &rarr;"/>
+    </div>
+    </form>
 </div>
-<div class="form-group">
-    <label for="message" class="h4 ">Message</label>
-    <textarea id="message" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
-</div>
-<button type="submit" id="form-submit" class="btn btn-success btn-lg pull-right ">Надiслати</button>
-<div id="msgSubmit" class="h3 text-center hidden">Message Submitted!</div>
 <div class="clearfix"></div>

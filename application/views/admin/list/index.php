@@ -23,8 +23,8 @@
         <tbody>
         <? foreach ($data as $item) { ?>
           <tr>
-            <td><? echo $item['id']; ?></td>
-            <td><? echo $item['login']; ?></td>
+            <td><? echo $item['uid']; ?></td>
+            <td><a href="<? echo $baseURI. "/admin/list/" . $item['login']; ?>"><? echo $item['login']; ?></a></td>
             <td><? echo $item['full_name']; ?></td>
             <td><? echo $item['phone']; ?></td>
           </tr>
