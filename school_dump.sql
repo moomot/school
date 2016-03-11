@@ -27,8 +27,9 @@ CREATE TABLE `admins` (
   `login` varchar(30) NOT NULL,
   `password` text NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
+  `uid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=cp1251;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=cp1251;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +38,7 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (1,'admin','827ccb0eea8a706c4c34a16891f84e7b',1);
+INSERT INTO `admins` VALUES (1,'admin','827ccb0eea8a706c4c34a16891f84e7b',1,5),(3,'new','5q4n1q2p',1,6);
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +58,7 @@ CREATE TABLE `private_messages` (
   `user_read` tinyint(1) NOT NULL DEFAULT '0',
   `school_read` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=cp1251;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=cp1251;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +67,7 @@ CREATE TABLE `private_messages` (
 
 LOCK TABLES `private_messages` WRITE;
 /*!40000 ALTER TABLE `private_messages` DISABLE KEYS */;
-INSERT INTO `private_messages` VALUES (1,1,1,'bla bla bla bla',1457304036,0,0),(2,6,1,'bla bla bla bla23432',1457304035,0,0);
+INSERT INTO `private_messages` VALUES (1,2,5,'bla bla bla bla',1457304036,0,0),(2,5,3,'И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!',1457304035,0,0),(3,5,1,'ура.',1457733939,0,0);
 /*!40000 ALTER TABLE `private_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,8 +88,9 @@ CREATE TABLE `schools` (
   `phone` varchar(20) NOT NULL,
   `description` text NOT NULL,
   `email` varchar(45) NOT NULL,
+  `uid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=cp1251;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=cp1251;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +99,7 @@ CREATE TABLE `schools` (
 
 LOCK TABLES `schools` WRITE;
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-INSERT INTO `schools` VALUES (1,'myschool','big big big address','effc1aec7db3759b5ca360d35ce9826b','school full name',1,'0634872948','description of school',''),(6,'fsdfsdfsdkiko','333333333333333333','33333333333333333333333333333333','333333333333333333',1,'33333333333333333333','3333333333333333333333333333333333','moomot@ukr.net'),(7,'kiko','33333333333333333333','827ccb0eea8a706c4c34a16891f84e7b','33333333333333',1,'33333333333333333333','3333333333333','moomot@ukr.ne');
+INSERT INTO `schools` VALUES (1,'myschool','big big big address','effc1aec7db3759b5ca360d35ce9826b','school full name',1,'0634872948','description of school','',1),(6,'fsdfsdfsdkiko','333333333333333333','33333333333333333333333333333333','333333333333333333',1,'33333333333333333333','3333333333333333333333333333333333','moomot@ukr.net',2),(7,'kiko','33333333333333333333','827ccb0eea8a706c4c34a16891f84e7b','33333333333333',1,'33333333333333333333','3333333333333','moomot@ukr.ne',3),(8,'mymy','dasfsdfsdfsdfs','f5bb0c8de146c67b44babbf4e6584cc0','dsfksdsdfkfsdk',1,'32423423','kfsdlfkdslkdfsl','moomot@ukr.net',8);
 /*!40000 ALTER TABLE `schools` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,6 +158,28 @@ INSERT INTO `static_pages` VALUES (1,'Про нас','Зеркала сдела�
 UNLOCK TABLES;
 
 --
+-- Table structure for table `unical_users_id`
+--
+
+DROP TABLE IF EXISTS `unical_users_id`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `unical_users_id` (
+  `uid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=cp1251;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unical_users_id`
+--
+
+LOCK TABLES `unical_users_id` WRITE;
+/*!40000 ALTER TABLE `unical_users_id` DISABLE KEYS */;
+INSERT INTO `unical_users_id` VALUES (9);
+/*!40000 ALTER TABLE `unical_users_id` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -171,6 +195,7 @@ CREATE TABLE `users` (
   `school_id` int(11) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `password` text NOT NULL,
+  `uid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=cp1251;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -181,7 +206,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'user_login','user_firstname','user_lastname','user_address',6,1,'effc1aec7db3759b5ca360d35ce9826b');
+INSERT INTO `users` VALUES (1,'user_login','user_firstname','user_lastname','user_address',6,1,'effc1aec7db3759b5ca360d35ce9826b',4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -194,4 +219,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-07  1:05:17
+-- Dump completed on 2016-03-12  0:11:54
