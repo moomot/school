@@ -34,12 +34,7 @@ class Model_Admin extends Model
         }
     }
 
-    /**
-     * Get site settings from "settings" table
-     * @return array
-     * @throws CustomException
-     */
-    function get_settings($login)
+    function get_admin($login)
     {
         try {
             $db = Database::getInstance();
@@ -61,6 +56,31 @@ class Model_Admin extends Model
 
             $data['password'] = $out_data['password'];
             $data['uid'] = $out_data['uid'];
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $data;
+    }
+
+    /**
+     * Get site settings from "settings" table
+     * @return array
+     * @throws CustomException
+     */
+    function get_settings()
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            $result = $_dbh->query("SELECT * FROM settings");
+            $tmp_data = $result->fetchAll(PDO::FETCH_ASSOC);
+            $data = [];
+            foreach ($tmp_data as $item=>$val) {
+                $data[$val['param']] = $val['val'];
+            }
+
             $_dbh = null;
         } catch (PDOException $e) {
             throw new CustomException("Query error");
