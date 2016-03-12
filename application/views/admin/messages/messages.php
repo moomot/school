@@ -28,7 +28,7 @@
         foreach ($data as $item) {
             ?>
             <tr>
-                <td><a href="#"><? echo $item['login']; ?></a></td>
+                <td><a href="<? echo Url::$baseurl. "/admin/list/" . $item['login']; ?>"><? echo $item['login']; ?></a></td>
                 <td><? echo $item['message']; ?></td>
             </tr>
             <?
