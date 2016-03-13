@@ -28,17 +28,22 @@ class Controller_Cpanel extends Controller
             {
                 $login = $_POST['login'];
                 $password =$_POST['password'];
-                $data = $this->model->get_settings();
-                if( $login===$data['admin_login'] && md5($password)===$data['admin_password'] )
-                {
-                    Session::set("login_status", "access_granted");
-                    Session::set("login", $login);
-                    $this->redirect_to_main("/".$this->defaultPage);
-                }
-                else
-                {
+                $data = $this->model->get_school_auth_data($login);
+
+                if (!empty($data['status'])) {
+                    if ($data['status']) {
+                        if (md5($password) == $data['password']) {
+                            Session::set("login_status", "access_granted");
+                            Session::set("uid", $data['uid']);;
+                            $this->redirect_to_main("/" . $this->defaultPage);
+                        } else {
+                            Session::set("login_status", "access_denied");
+                            $this->redirect_to_main("/" . $this->defaultPage);
+                        }
+                    }
+                } else {
                     Session::set("login_status", "access_denied");
-                    $this->redirect_to_main("/".$this->defaultPage);
+                    $this->redirect_to_main("/" . $this->defaultPage);
                 }
             } else {
                 $this->redirect_to_main("/".$this->defaultPage);

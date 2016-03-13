@@ -276,4 +276,94 @@ class Model_Admin extends Model
         }
         return $result;
     }
+
+    function get_pages() {
+        try {
+            $sql = "SELECT id, title, url FROM static_pages";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $query = $_dbh->query($sql);
+
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_page_by_url($name) {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT * FROM static_pages WHERE url=:url");
+            $stmt->bindParam(":url", $name);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function is_page_exists($name) {
+        try {
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT title FROM static_pages WHERE url=:url");
+            $stmt->bindParam(":url", $name);
+            $stmt->execute();
+            $result = $stmt->rowCount();
+            $result = $result > 0 ? true : false;
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function add_page($data) {
+        if ($this->is_page_exists($data['page_name'])) {
+            return false;
+        }
+        try {
+            unset($data['add']);
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            // Get timestamp
+            $date = new DateTime();
+            $timestamp = $date->getTimestamp();
+
+            // Insert page
+
+            $stmt = $_dbh->prepare("INSERT INTO static_pages (title, content, timestamp, status, comments_status, url)
+                                    VALUES (:title, :content, :timestamp, :status, :comments_status, :url)");
+
+            $stmt->bindParam(":title", $data['title']);
+            $stmt->bindParam(":content", $data['content']);
+            $stmt->bindParam(":timestamp", $timestamp);
+            $stmt->bindParam(":status", $data['status']);
+            $stmt->bindParam(":comments_status", $data['comments_status']);
+            $stmt->bindParam(":url", $data['url']);
+
+            $result = $stmt->execute();
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
 }

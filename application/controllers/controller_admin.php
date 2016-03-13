@@ -13,39 +13,34 @@ class Controller_Admin extends Controller
 
     function action_index()
     {
-        if ( $this->accessGranted() )
-            $this->view->generateAdminTpl($this->defaultPage."/dashboard.php");
+        if ($this->accessGranted())
+            $this->view->generateAdminTpl($this->defaultPage . "/dashboard.php");
         else
-            $this->view->generateAdminTpl($this->defaultPage."/login.php");
+            $this->view->generateAdminTpl($this->defaultPage . "/login.php");
     }
+
     function action_login()
     {
-        if(Users::getLoginStatus()=="access_granted") {
-            $this->redirect_to_main("/".$this->defaultPage);
-        }
-        else
-        {
-            if(isset($_POST['login']) && isset($_POST['password']))
-            {
+        if (Users::getLoginStatus() == "access_granted") {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        } else {
+            if (isset($_POST['login']) && isset($_POST['password'])) {
                 $login = $_POST['login'];
-                $password =$_POST['password'];
+                $password = $_POST['password'];
                 $data = $this->model->get_settings($login);
-                if($data['status']) {
-                    if( md5($password)===$data['password'] )
-                    {
+                if ($data['status']) {
+                    if (md5($password) === $data['password']) {
                         Session::set("login_status", "access_granted");
                         Session::set("uid", $data['uid']);;
-                        $this->redirect_to_main("/".$this->defaultPage);
-                    }
-                    else
-                    {
+                        $this->redirect_to_main("/" . $this->defaultPage);
+                    } else {
                         Session::set("login_status", "access_denied");
-                        $this->redirect_to_main("/".$this->defaultPage);
+                        $this->redirect_to_main("/" . $this->defaultPage);
                     }
                 }
 
             } else {
-                $this->redirect_to_main("/".$this->defaultPage);
+                $this->redirect_to_main("/" . $this->defaultPage);
             }
         }
     }
@@ -53,90 +48,17 @@ class Controller_Admin extends Controller
     function action_logout()
     {
         Session::destroy();
-        header('Location:'.Url::$baseurl);
-    }
-
-    function action_list()
-    {
-        if ( $this->accessGranted() ) {
-            $base = Url::$baseurl;
-            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
-            $routes = explode('/', $request_uri);
-            if(!empty($routes[3])) {
-                $data = $this->model->get_school_by_login($routes[3]);
-                if($this->model->is_school_exists($routes[3])) {
-                    $this->view->generateAdminTpl($this->defaultPage . "/list/user.php", $data);
-                }
-                else
-                {
-                    $data['message'] = "Школа не знайдена";
-                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
-                }
-            } else {
-                $data = $this->model->get_schools();
-                $this->view->generateAdminTpl($this->defaultPage."/list/index.php", $data);
-            }
-
-        }
-        else {
-            $this->redirect_to_main("/".$this->defaultPage);
-        }
-    }
-
-    function action_messages()
-    {
-        if ( $this->accessGranted() )
-
-            $this->view->generateAdminTpl($this->defaultPage."/messages/index.php");
-        else
-            $this->redirect_to_main("/".$this->defaultPage);
-    }
-
-    function action_send_message()
-    {
-        $data = $this->model->get_schools();
-        if ( $this->accessGranted() )
-            $this->view->generateAdminTpl($this->defaultPage."/messages/send.php", $data);
-        else
-            $this->redirect_to_main("/".$this->defaultPage);
-    }
-
-    function action_submit_send_message()
-    {
-        if ( $this->accessGranted() ) {
-            ob_clean();
-            ob_start();
-            if(isset($_POST)) {
-                $result = $this->model->send_message($_POST);
-                if($result) {
-                    $data['message'] = "Повiдомлення успiшно вiдправлено!";
-                    include $this->prefix . $this->defaultPage . "/errors/info.php";
-                } else {
-                    $data['message'] = "Повiдомлення не вiдправлено!";
-                    include $this->prefix . $this->defaultPage . "/errors/critical.php";
-                }
-
-            } else {
-                $this->view->generateAdminTpl($this->defaultPage . "/messages/send.php");
-            }
-        }
-        else {
-            $this->redirect_to_main("/".$this->defaultPage);
-        }
-
+        header('Location:' . Url::$baseurl);
     }
 
     function action_settings()
     {
-        if ( $this->accessGranted() )
-        {
+        if ($this->accessGranted()) {
             $data = $this->model->get_settings();
             $data['tpl_list'] = $this->model->get_site_templates();
-            $this->view->generateAdminTpl($this->defaultPage."/settings/index.php", $data);
-        }
-        else
-        {
-            $this->redirect_to_main("/".$this->defaultPage);
+            $this->view->generateAdminTpl($this->defaultPage . "/settings/index.php", $data);
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
         }
     }
 
@@ -158,13 +80,88 @@ class Controller_Admin extends Controller
         $this->model->save_settings($data);
     }
 
+
+    function action_messages()
+    {
+        if ($this->accessGranted())
+            $this->view->generateAdminTpl($this->defaultPage . "/messages/index.php");
+        else
+            $this->redirect_to_main("/" . $this->defaultPage);
+    }
+
+    function action_send_message()
+    {
+        $data = $this->model->get_schools();
+        if ($this->accessGranted())
+            $this->view->generateAdminTpl($this->defaultPage . "/messages/send.php", $data);
+        else
+            $this->redirect_to_main("/" . $this->defaultPage);
+    }
+
+    function action_submit_send_message()
+    {
+        if ($this->accessGranted()) {
+            ob_clean();
+            ob_start();
+            if (isset($_POST)) {
+                $result = $this->model->send_message($_POST);
+                if ($result) {
+                    $data['message'] = "Повiдомлення успiшно вiдправлено!";
+                    include $this->prefix . $this->defaultPage . "/errors/info.php";
+                } else {
+                    $data['message'] = "Повiдомлення не вiдправлено!";
+                    include $this->prefix . $this->defaultPage . "/errors/critical.php";
+                }
+
+            } else {
+                $this->view->generateAdminTpl($this->defaultPage . "/messages/send.php");
+            }
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+
+    }
+
+    /**
+     * Render input private messages
+     * Action calls by ajax.
+     */
+    function action_input_pm()
+    {
+        $data = $this->model->get_input_pm();
+        if (sizeof($data) == 0) {
+            $data['status'] = "Сообщений нет";
+        }
+        ob_clean();
+        ob_start();
+        include $this->prefix . $this->defaultPage . "/messages/messages.php";
+    }
+
+    /**
+     * Render output private messages
+     * Action calls by ajax.
+     */
+    function action_output_pm()
+    {
+        $data = $this->model->get_output_pm();
+        if (sizeof($data) == 0) {
+            $data['status'] = "Сообщений нет";
+        }
+        ob_clean();
+        ob_start();
+        include $this->prefix . $this->defaultPage . "/messages/messages.php";
+    }
+
+    /**
+     * Add school page
+     */
     function action_add_school()
     {
-        if ( $this->accessGranted() ) {
-            if(isset($_POST['add'])) {
+        if ($this->accessGranted()) {
+            if (isset($_POST['add'])) {
                 $_POST['password'] = md5($_POST['password']);
                 $result = $this->model->add_school($_POST);
-                if($result) {
+                if ($result) {
                     $data['message'] = "Школа успешно добавлена!";
                     $this->view->generateAdminTpl($this->defaultPage . "/errors/info.php", $data);
                 } else {
@@ -175,31 +172,82 @@ class Controller_Admin extends Controller
             } else {
                 $this->view->generateAdminTpl($this->defaultPage . "/school/add.php");
             }
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
         }
-        else {
-            $this->redirect_to_main("/".$this->defaultPage);
-        }
-
     }
 
-    function action_input_pm() {
-        $data = $this->model->get_input_pm();
-        if(sizeof($data) == 0) {
-            $data['status'] = "Сообщений нет";
+    function action_list()
+    {
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                $data = $this->model->get_school_by_login($routes[3]);
+                if ($this->model->is_school_exists($routes[3])) {
+                    $this->view->generateAdminTpl($this->defaultPage . "/school/user.php", $data);
+                } else {
+                    $data['message'] = "Школа не знайдена";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            } else {
+                $data = $this->model->get_schools();
+                $this->view->generateAdminTpl($this->defaultPage . "/school/index.php", $data);
+            }
+
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
         }
-        ob_clean();
-        ob_start();
-        include $this->prefix . $this->defaultPage . "/messages/messages.php";
     }
-    function action_output_pm() {
-        $data = $this->model->get_output_pm();
-        if(sizeof($data) == 0) {
-            $data['status'] = "Сообщений нет";
+
+    /* Static pages */
+    function action_pages()
+    {
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                $data = $this->model->get_page_by_url($routes[3]);
+                if ($this->model->is_page_exists($routes[3])) {
+                    $this->view->generateAdminTpl($this->defaultPage . "/pages/page.php", $data);
+                } else {
+                    $data['message'] = "Сторiнка не знайдена";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            } else {
+                $data = $this->model->get_pages();
+                $this->view->generateAdminTpl($this->defaultPage . "/pages/index.php", $data);
+            }
+
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
         }
-        ob_clean();
-        ob_start();
-        include $this->prefix . $this->defaultPage . "/messages/messages.php";
     }
+
+    function action_add_page()
+    {
+        if ($this->accessGranted()) {
+            if (isset($_POST['add'])) {
+
+                $result = $this->model->add_page($_POST);
+                if ($result) {
+                    $data['message'] = "Сторiнка успiшно створена!";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/info.php", $data);
+                } else {
+                    $data['message'] = "Помилка у створеннi сторiнки!";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+
+            } else {
+                $this->view->generateAdminTpl($this->defaultPage . "/pages/add.php");
+            }
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
 
 
 
