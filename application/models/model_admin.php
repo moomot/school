@@ -42,9 +42,9 @@ class Model_Admin extends Model
             $_dbh->exec('SET NAMES utf8');
             $stmt = $_dbh->prepare("SELECT password, uid FROM admins WHERE login=:login");
             $stmt->bindParam(":login", $login);
-            $result = $stmt->execute();
-
-            if($result) {
+            $stmt->execute();
+            $out_data = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($out_data) {
                 $data['status'] = true;
             } else {
                 if($stmt->rowCount() == 0)
@@ -52,10 +52,9 @@ class Model_Admin extends Model
                     $data['status'] = false;
                 }
             }
-            $out_data = $stmt->fetch(PDO::FETCH_ASSOC);
-
             $data['password'] = $out_data['password'];
             $data['uid'] = $out_data['uid'];
+
             $_dbh = null;
         } catch (PDOException $e) {
             throw new CustomException("Query error");

@@ -27,9 +27,10 @@ class Controller_Admin extends Controller
             if (isset($_POST['login']) && isset($_POST['password'])) {
                 $login = $_POST['login'];
                 $password = $_POST['password'];
-                $data = $this->model->get_settings($login);
+                $data = $this->model->get_admin($login);
+                if (!empty($data['status'])){
                 if ($data['status']) {
-                    if (md5($password) === $data['password']) {
+                    if (md5($password) == $data['password']) {
                         Session::set("login_status", "access_granted");
                         Session::set("uid", $data['uid']);;
                         $this->redirect_to_main("/" . $this->defaultPage);
@@ -37,6 +38,10 @@ class Controller_Admin extends Controller
                         Session::set("login_status", "access_denied");
                         $this->redirect_to_main("/" . $this->defaultPage);
                     }
+                }
+                } else {
+                    Session::set("login_status", "access_denied");
+                    $this->redirect_to_main("/" . $this->defaultPage);
                 }
 
             } else {
