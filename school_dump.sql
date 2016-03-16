@@ -38,7 +38,7 @@ CREATE TABLE `admins` (
 
 LOCK TABLES `admins` WRITE;
 /*!40000 ALTER TABLE `admins` DISABLE KEYS */;
-INSERT INTO `admins` VALUES (1,'admin','827ccb0eea8a706c4c34a16891f84e7b',1,5),(3,'new','5q4n1q2p',1,6);
+INSERT INTO `admins` VALUES (1,'admin','effc1aec7db3759b5ca360d35ce9826b',1,5),(3,'new','5q4n1q2p',1,6);
 /*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +58,7 @@ CREATE TABLE `private_messages` (
   `user_read` tinyint(1) NOT NULL DEFAULT '0',
   `school_read` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=cp1251;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=cp1251;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ CREATE TABLE `private_messages` (
 
 LOCK TABLES `private_messages` WRITE;
 /*!40000 ALTER TABLE `private_messages` DISABLE KEYS */;
-INSERT INTO `private_messages` VALUES (1,2,5,'bla bla bla bla',1457304036,0,0),(2,5,3,'И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!',1457304035,0,0),(3,5,1,'ура.',1457733939,0,0);
+INSERT INTO `private_messages` VALUES (1,2,5,'bla bla bla bla',1457304036,0,0),(2,5,3,'И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!И так, вот и долгожданный мастер-класс от нашей студии для веб-дизайнеров! Смотрите, комментируйте, делитесь с друзьями! Будем рады любой поддержке!? \nНадеемся, что у нас получилось Вас порадовать\nПриятного просмотра!',1457304035,0,0),(3,5,1,'ура.',1457733939,0,0),(4,5,3,'sdfsdfdfs',1457817731,0,0),(5,5,1,'sdfsdffsd',1457817746,0,0),(6,5,2,'sdf,sdflsd',1457956172,0,0);
 /*!40000 ALTER TABLE `private_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE `schools` (
 
 LOCK TABLES `schools` WRITE;
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-INSERT INTO `schools` VALUES (1,'myschool','big big big address','effc1aec7db3759b5ca360d35ce9826b','school full name',1,'0634872948','description of school','',1),(6,'fsdfsdfsdkiko','333333333333333333','33333333333333333333333333333333','333333333333333333',1,'33333333333333333333','3333333333333333333333333333333333','moomot@ukr.net',2),(7,'kiko','33333333333333333333','827ccb0eea8a706c4c34a16891f84e7b','33333333333333',1,'33333333333333333333','3333333333333','moomot@ukr.ne',3),(8,'mymy','dasfsdfsdfsdfs','f5bb0c8de146c67b44babbf4e6584cc0','dsfksdsdfkfsdk',1,'32423423','kfsdlfkdslkdfsl','moomot@ukr.net',8);
+INSERT INTO `schools` VALUES (6,'fsdfsdfsdkiko','333333333333333333','33333333333333333333333333333333','333333333333333333',1,'33333333333333333333','3333333333333333333333333333333333','moomot@ukr.net',2),(7,'kiko','33333333333333333333','effc1aec7db3759b5ca360d35ce9826b','33333333333333',1,'33333333333333333333','3333333333333','moomot@ukr.ne',3),(8,'mymy','dasfsdfsdfsdfs','f5bb0c8de146c67b44babbf4e6584cc0','dsfksdsdfkfsdk',1,'32423423','kfsdlfkdslkdfsl','moomot@ukr.net',8);
 /*!40000 ALTER TABLE `schools` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +124,7 @@ CREATE TABLE `settings` (
 
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'title','Тестовый сайт'),(2,'description','32wresfdfdsdfsds'),(3,'admin_login','admin'),(4,'admin_password','827ccb0eea8a706c4c34a16891f84e7b'),(5,'template','candy'),(6,'onReconstruction','0'),(7,'reconstructionReason','<h1>Сайт закрыт на реконструкцию</h1><p>Попробуйте позже</p>');
+INSERT INTO `settings` VALUES (1,'title','Автошкола'),(2,'description','описание'),(5,'template','candy'),(6,'onReconstruction','0'),(7,'reconstructionReason','');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,4 +219,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-12  0:11:54
+-- Dump completed on 2016-03-17  0:08:36
