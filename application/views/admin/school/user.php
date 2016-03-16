@@ -15,7 +15,7 @@
             <tbody>
             <tr>
                 <td>#</td>
-                <td><? echo $data['id']; ?></td>
+                <td><? echo $data['uid']; ?></td>
             </tr>
             <tr>
                 <td>Логiн</td>
@@ -47,6 +47,10 @@
             </tr>
             </tbody>
         </table>
+        <div class="text-right">
+            <a href="<? echo $baseURI; ?>/admin/edit_school/<? echo $data['login']; ?>" class="btn btn-default btn-primary">Редагувати</a>
+            <a href="<? echo $baseURI; ?>/admin/remove_school/<? echo $data['login']; ?>" class="btn btn-default btn-danger">Видалити</a>
+        </div>
     </div>
 
 </div>

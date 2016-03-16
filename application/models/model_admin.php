@@ -194,20 +194,48 @@ class Model_Admin extends Model
         return $result;
     }
 
-    function get_input_pm() {
-        $uid = Session::get("uid");
+    function save_school($data)
+    {
         try {
-
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
+            // UPDATE USER
+            $stmt = $_dbh->prepare("UPDATE schools SET `login`=:login, `address` = :address, `password` = :password, `full_name` = :full_name, `phone` = :phone, `description` = :description, `email` = :email WHERE `uid` = :uid");
 
-            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, schools WHERE user2_id = :user_id AND schools.uid = user_id");
-            $stmt->bindParam(":user_id", $uid);
+            $stmt->bindParam(":login", $data['login']);
+            $stmt->bindParam(":address", $data['address']);
+            $stmt->bindParam(":password", $data['password']);
+            $stmt->bindParam(":full_name", $data['full_name']);
+            $stmt->bindParam(":phone", $data['phone']);
+            $stmt->bindParam(":description", $data['description']);
+            $stmt->bindParam(":email", $data['email']);
+            $stmt->bindParam(":uid", $data['uid']);
 
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stmt->execute();
+
             $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function remove_school($login) {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            // UPDATE USER
+            $stmt = $_dbh->prepare("DELETE FROM schools WHERE `login` = :login");
+
+            $stmt->bindParam(":login", $login);
+
+            $result = $stmt->execute();
+
+            $_dbh = null;
+
         } catch (PDOException $e) {
             throw new CustomException("Query error");
         }
@@ -222,10 +250,27 @@ class Model_Admin extends Model
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
 
-            //TODO fix
+
             $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, schools WHERE user_id = :user_id AND schools.uid = user2_id");
             $stmt->bindParam(":user_id", $uid);
 
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_input_pm() {
+        $uid = Session::get("uid");
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, schools WHERE user2_id = :user_id AND schools.uid = user_id");
+            $stmt->bindParam(":user_id", $uid);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $_dbh = null;

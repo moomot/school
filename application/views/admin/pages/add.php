@@ -36,5 +36,5 @@
         <input type="text" class="form-control" required name="address" value=""  placeholder="Адрес">
     </div>
 
-    <p><input type="submit" class="btn btn-default btn-block" name="add" value="Добавить &rarr;"/></p>
+    <p><input type="submit" class="btn btn-success btn-block" name="add" value="Додати &rarr;"/></p>
 </form>

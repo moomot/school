@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 text-center">
-                        <input type="submit" class="btn btn-default" value="Сохранить">
+                        <input type="submit" class="btn btn-default" value="Зберегти">
                     </div>
                 </form>
             </div>

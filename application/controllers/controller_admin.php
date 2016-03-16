@@ -206,6 +206,63 @@ class Controller_Admin extends Controller
         }
     }
 
+    function action_edit_school()
+    {
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                $data = $this->model->get_school_by_login($routes[3]);
+                if ($this->model->is_school_exists($routes[3])) {
+                    $this->view->generateAdminTpl($this->defaultPage . "/school/edit.php", $data);
+                } else {
+                    $data['message'] = "Школа не знайдена";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            } else {
+                $data = $this->model->get_schools();
+                $this->view->generateAdminTpl($this->defaultPage . "/school/index.php", $data);
+            }
+
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_save_school()
+    {
+        if ($this->accessGranted()) {
+            $this->model->save_school($_POST);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_remove_school()
+    {
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                if ($this->model->remove_school($routes[3])) {
+                    $data['message'] = "Видалено успiшно!";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/info.php", $data);
+                } else {
+                    $data['message'] = "Помилка при видаленнi";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
     /* Static pages */
     function action_pages()
     {

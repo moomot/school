@@ -30,6 +30,6 @@
         </tbody>
     </table>
 </div>
-<div class="text-center">
-    <a href="<? echo $baseURI; ?>/admin/add_page" class="btn btn-primary">Створити сторiнку</a>
+<div class="text-right">
+    <a href="<? echo $baseURI; ?>/admin/add_page" class="btn btn-success">Створити сторiнку</a>
 </div>

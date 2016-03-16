@@ -32,6 +32,6 @@
         </tbody>
       </table>
     </div>
-<div class="text-center">
-    <a href="<? echo $baseURI; ?>/admin/add_school" class="btn btn-primary">Створити школу</a>
+<div class="text-right">
+    <a href="<? echo $baseURI; ?>/admin/add_school" class="btn btn-success">Створити школу</a>
 </div>
