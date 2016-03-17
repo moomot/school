@@ -90,7 +90,7 @@ CREATE TABLE `schools` (
   `email` varchar(45) NOT NULL,
   `uid` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=cp1251;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=cp1251;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,7 @@ CREATE TABLE `schools` (
 
 LOCK TABLES `schools` WRITE;
 /*!40000 ALTER TABLE `schools` DISABLE KEYS */;
-INSERT INTO `schools` VALUES (6,'fsdfsdfsdkiko','333333333333333333','33333333333333333333333333333333','333333333333333333',1,'33333333333333333333','3333333333333333333333333333333333','moomot@ukr.net',2),(7,'kiko','33333333333333333333','effc1aec7db3759b5ca360d35ce9826b','33333333333333',1,'33333333333333333333','3333333333333','moomot@ukr.ne',3),(8,'mymy','dasfsdfsdfsdfs','f5bb0c8de146c67b44babbf4e6584cc0','dsfksdsdfkfsdk',1,'32423423','kfsdlfkdslkdfsl','moomot@ukr.net',8);
+INSERT INTO `schools` VALUES (6,'fsdfsdfsdkiko','333333333333333333','33333333333333333333333333333333','333333333333333333',1,'33333333333333333333','3333333333333333333333333333333333','moomot@ukr.net',2),(8,'kiko','dasfsdfsdfsdfs','effc1aec7db3759b5ca360d35ce9826b','dsfksdsdfkfsdk',1,'32423423','kfsdlfkdslkdfsl','moomot@ukr.net',8);
 /*!40000 ALTER TABLE `schools` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +175,7 @@ CREATE TABLE `unical_users_id` (
 
 LOCK TABLES `unical_users_id` WRITE;
 /*!40000 ALTER TABLE `unical_users_id` DISABLE KEYS */;
-INSERT INTO `unical_users_id` VALUES (9);
+INSERT INTO `unical_users_id` VALUES (10);
 /*!40000 ALTER TABLE `unical_users_id` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,4 +219,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-17  0:08:36
+-- Dump completed on 2016-03-17 13:51:23
