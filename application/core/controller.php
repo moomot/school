@@ -34,10 +34,7 @@ class Controller
         }
     }
 
-    public function accessGranted()
-    {
-        return Users::getLoginStatus()=="access_granted";
-    }
+
     public function redirect_to_main($redirectPage = "/")
     {
         header('Location:'.Url::$baseurl.$redirectPage);

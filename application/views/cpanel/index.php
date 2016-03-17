@@ -4,7 +4,7 @@ $config = $application->_config;
 $baseURI = Url::$baseurl;
 $settings = $application->getSettings();
 
-$login_status = Users::getLoginStatus();
+$login_status = Users::getSchoolLoginStatus();
 $login = Users::getLogin();
 $prefix = $baseURI."/assets";
 ?>

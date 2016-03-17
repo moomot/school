@@ -23,6 +23,10 @@
                 <td><input class="form-control" type="text" name="login" value="<? echo $data['login']; ?>"></td>
             </tr>
             <tr>
+                <td>Пароль</td>
+                <td><input class="form-control" type="password" name="password" value=""></td>
+            </tr>
+            <tr>
                 <td>Адрес</td>
                 <td><input class="form-control" type="text" name="address" value="<? echo $data['address']; ?>"></td>
             </tr>

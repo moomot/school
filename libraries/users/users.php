@@ -12,9 +12,17 @@ class Users
         if(Session::get("login") == "")
             return "Гость";
         else
-            return Session::get("login");
+            return Session::get("uid");
     }
     static function getLoginStatus() {
         return Session::get("login_status");
+    }
+
+    static function getAdminLoginStatus() {
+        return Session::get("admin_login_status");
+    }
+
+    static function getSchoolLoginStatus() {
+        return Session::get("school_login_status");
     }
 }

@@ -19,7 +19,7 @@ class Controller_Cpanel extends Controller
     }
     function action_login()
     {
-        if(Users::getLoginStatus()=="access_granted") {
+        if( $this->accessGranted() ) {
             $this->redirect_to_main("/".$this->defaultPage);
         }
         else
@@ -33,16 +33,16 @@ class Controller_Cpanel extends Controller
                 if (!empty($data['status'])) {
                     if ($data['status']) {
                         if (md5($password) == $data['password']) {
-                            Session::set("login_status", "access_granted");
+                            Session::set("school_login_status", "access_granted");
                             Session::set("uid", $data['uid']);;
                             $this->redirect_to_main("/" . $this->defaultPage);
                         } else {
-                            Session::set("login_status", "access_denied");
+                            Session::set("school_login_status", "access_denied");
                             $this->redirect_to_main("/" . $this->defaultPage);
                         }
                     }
                 } else {
-                    Session::set("login_status", "access_denied");
+                    Session::set("school_login_status", "access_denied");
                     $this->redirect_to_main("/" . $this->defaultPage);
                 }
             } else {
@@ -105,5 +105,11 @@ class Controller_Cpanel extends Controller
             }
         }
     }
+
+    private function accessGranted()
+    {
+        return Users::getSchoolLoginStatus()=="access_granted";
+    }
+
 
 }

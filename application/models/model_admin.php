@@ -154,7 +154,7 @@ class Model_Admin extends Model
     }
 
     function add_school($data) {
-        if ($this->is_school_exists($data['school_name'])) {
+        if ($this->is_school_exists($data['login'])) {
             return false;
         }
         try {
@@ -203,9 +203,11 @@ class Model_Admin extends Model
             // UPDATE USER
             $stmt = $_dbh->prepare("UPDATE schools SET `login`=:login, `address` = :address, `password` = :password, `full_name` = :full_name, `phone` = :phone, `description` = :description, `email` = :email WHERE `uid` = :uid");
 
+            $pass = md5($data['password']);
+
             $stmt->bindParam(":login", $data['login']);
             $stmt->bindParam(":address", $data['address']);
-            $stmt->bindParam(":password", $data['password']);
+            $stmt->bindParam(":password", $pass);
             $stmt->bindParam(":full_name", $data['full_name']);
             $stmt->bindParam(":phone", $data['phone']);
             $stmt->bindParam(":description", $data['description']);

@@ -21,7 +21,7 @@ class Controller_Admin extends Controller
 
     function action_login()
     {
-        if (Users::getLoginStatus() == "access_granted") {
+        if ($this->accessGranted()) {
             $this->redirect_to_main("/" . $this->defaultPage);
         } else {
             if (isset($_POST['login']) && isset($_POST['password'])) {
@@ -31,16 +31,16 @@ class Controller_Admin extends Controller
                 if (!empty($data['status'])){
                 if ($data['status']) {
                     if (md5($password) == $data['password']) {
-                        Session::set("login_status", "access_granted");
+                        Session::set("admin_login_status", "access_granted");
                         Session::set("uid", $data['uid']);;
                         $this->redirect_to_main("/" . $this->defaultPage);
                     } else {
-                        Session::set("login_status", "access_denied");
+                        Session::set("admin_login_status", "access_denied");
                         $this->redirect_to_main("/" . $this->defaultPage);
                     }
                 }
                 } else {
-                    Session::set("login_status", "access_denied");
+                    Session::set("admin_login_status", "access_denied");
                     $this->redirect_to_main("/" . $this->defaultPage);
                 }
 
@@ -58,7 +58,7 @@ class Controller_Admin extends Controller
 
     function action_settings()
     {
-        if ($this->accessGranted()) {
+        if ( $this->accessGranted() ) {
             $data = $this->model->get_settings();
             $data['tpl_list'] = $this->model->get_site_templates();
             $this->view->generateAdminTpl($this->defaultPage . "/settings/index.php", $data);
@@ -311,6 +311,10 @@ class Controller_Admin extends Controller
     }
 
 
+    private function accessGranted()
+    {
+        return Users::getAdminLoginStatus()=="access_granted";
+    }
 
 
 }
