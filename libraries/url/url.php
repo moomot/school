@@ -16,11 +16,12 @@ class Url
      */
     public static function init()
     {
-        $path = PATH_SITE;
+       // $path = PATH_SITE;
         //нахожу в строке название сайта
-        $pos = strrpos($path,DIRECTORY_SEPARATOR);
-        //извлекаю название
-        self::$baseurl = "/".substr($path,(int) $pos+1);
+//        $pos = strrpos($path,DIRECTORY_SEPARATOR);
+//        //извлекаю название
+//        self::$baseurl = "/".substr($path,(int) $pos+1);
+        self::$baseurl = implode('/', array_slice(explode('/', $_SERVER['PHP_SELF']), 0, -1));
     }
     public static function formURL($name)
     {
