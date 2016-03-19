@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="16cb771f-2443-419a-94c8-162a68280d8d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/admin/index.php" afterPath="$PROJECT_DIR$/application/views/admin/index.php" />
     </list>
     <ignored path="landing_cms.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -117,8 +116,8 @@
       <file leaf-file-name="model_admin.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/models/model_admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.861386">
-              <caret line="380" column="56" selection-start-line="380" selection-start-column="56" selection-end-line="380" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.33168316">
+              <caret line="574" column="20" selection-start-line="574" selection-start-column="20" selection-end-line="574" selection-end-column="20" />
               <folding>
                 <marker date="1458410666698" expanded="true" signature="308:351" placeholder="UPDATE setti..." />
                 <marker date="1458410666698" expanded="true" signature="1066:1117" placeholder="SELECT passw..admins..." />
@@ -992,8 +991,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/model_admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.861386">
-          <caret line="380" column="56" selection-start-line="380" selection-start-column="56" selection-end-line="380" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.33168316">
+          <caret line="574" column="20" selection-start-line="574" selection-start-column="20" selection-end-line="574" selection-end-column="20" />
           <folding>
             <marker date="1458410666698" expanded="true" signature="308:351" placeholder="UPDATE setti..." />
             <marker date="1458410666698" expanded="true" signature="1066:1117" placeholder="SELECT passw..admins..." />
