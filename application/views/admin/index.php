@@ -5,7 +5,7 @@ $baseURI = Url::$baseurl;
 $settings = $application->getSettings();
 
 $login_status = Users::getAdminLoginStatus();
-$login = Users::getLogin();
+$login = Users::getUID();
 $prefix = $baseURI."/assets";
 ?>
 <!doctype html>
