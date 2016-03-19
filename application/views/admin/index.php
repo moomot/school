@@ -5,7 +5,7 @@ $baseURI = Url::$baseurl;
 $settings = $application->getSettings();
 
 $login_status = Users::getAdminLoginStatus();
-$login = Users::getUID();
+$login = Users::getLogin();
 $prefix = $baseURI."/assets";
 ?>
 <!doctype html>
@@ -14,7 +14,7 @@ $prefix = $baseURI."/assets";
     <meta charset="UTF-8">
     <title>Админка | <? echo $settings['title']; ?></title>
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/style.css"/>
-    <link rel="stylesheet" href="<? echo $prefix; ?>/css/bootstrap.css"/>
+    <link rel="stylesheet"gu href="<? echo $prefix; ?>/css/bootstrap.css"/>
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/bootstrap-datetimepicker.min.css"/>
 </head>
 <body>
@@ -32,6 +32,10 @@ $prefix = $baseURI."/assets";
                [
                    "url" => "/admin/list",
                    "content" => "<span class=\"glyphicon glyphicon-list\"></span> Список шкiл"
+               ],
+                [
+                   "url" => "/admin/lectures",
+                   "content" => "<span class=\"glyphicon glyphicon-list\"></span> Редактор лекцій"
                ],
                [
                    "url" => "/admin/messages",

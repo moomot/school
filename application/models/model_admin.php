@@ -412,4 +412,295 @@ class Model_Admin extends Model
         }
         return $result;
     }
+
+    function get_lectures()
+    {
+        try
+        {
+            $sql = "SELECT number, name FROM lectures";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $query = $_dbh->query($sql);
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+
+        //sort lections for correct render order
+        foreach ($result as $key => $row)
+        {
+            $number[$key]  = $row['number'];
+            $name[$key] = $row['name'];
+        }
+        array_multisort($number, SORT_ASC, $name, SORT_ASC, $result);
+
+        return $result;
+    }
+
+    //$lecture [in] number of lecture
+    function get_lecture_name($lecture)
+    {
+        try
+        {
+            $sql = "SELECT name FROM lectures WHERE number=$lecture";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $query = $_dbh->query($sql);
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result[0]['name'];
+    }
+
+    //$pdata [in,out] array with current lecture for which
+    //we find questions and variants,
+    //output array will have format
+    //array(pdata) => [array(questions) => [id, question, array(variants) => [text, correct]]]
+    //exclusive previous content
+    function get_questions(&$pdata)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            //get questions for lecture
+            $sql = "SELECT id,question FROM questions WHERE lecture=$pdata[current_lecture]";
+            $query = $_dbh->query($sql);
+            $pdata['questions'] = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            //get variants and add to our questions
+            foreach($pdata['questions'] as &$item)
+            {
+                $sql = "SELECT id,answer,correct FROM variants WHERE question=$item[id]";
+                $query = $_dbh->query($sql);
+                $item['variants'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            }
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+    }
+
+    function add_lecture($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("INSERT INTO lectures (number, name)
+                                    VALUES (:number, :name)");
+
+            $stmt->bindParam(":number", $data['number']);
+            $stmt->bindParam(":name", $data['name']);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function edit_lecture($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("update lectures
+                                    set number=:number, name=:name
+                                    where number=:old_number");
+
+            $stmt->bindParam(":number", $data['number']);
+            $stmt->bindParam(":name", $data['name']);
+            $stmt->bindParam(":old_number",$data['old_number']);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function remove_lecture($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("delete from lectures
+                                    where number=:number");
+
+            $stmt->bindParam(":number", $data);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    //$question [in] id of question
+    function get_question_by_id($question)
+    {
+        try
+        {
+            $sql = "SELECT lecture,question FROM questions WHERE id=$question";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $query = $_dbh->query($sql);
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result[0];
+    }
+
+    function add_question($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("INSERT INTO questions (lecture,question)
+                                    VALUES (:lecture, :question)");
+
+            $stmt->bindParam(":lecture", $data['lecture']);
+            $stmt->bindParam(":question", $data['question']);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function edit_question($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("update questions
+                                    set lecture=:lecture, question=:question
+                                    where id=:old_id");
+
+            $stmt->bindParam(":lecture", $data['lecture']);
+            $stmt->bindParam(":question", $data['question']);
+            $stmt->bindParam(":old_id",$data['old_id']);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function remove_question($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("delete from questions
+                                    where id=:id");
+
+            $stmt->bindParam(":id", $data);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function add_variant($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("INSERT INTO variants (question,answer,correct)
+                                    VALUES (:question, :answer, :correct)");
+
+            $stmt->bindParam(":question", $data['question']);
+            $stmt->bindParam(":answer", $data['answer']);
+            if(!isset($data['correct'])) $correct=0;
+            else $correct=1;
+            $stmt->bindParam(":correct", $correct);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function remove_variant($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("delete from variants
+                                    where id=:id");
+
+            $stmt->bindParam(":id", $data);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
 }

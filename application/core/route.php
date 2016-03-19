@@ -15,7 +15,10 @@ class Route
 
         $base = Url::$baseurl;
         $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
-         $routes = explode('/', $request_uri);
+        $routes = explode('/', $request_uri);
+
+        if($routes[1]=='?XDEBUG_SESSION_START=CCFE3E94')
+            $routes[1]=null;
 
         // получаем имя контроллера
         if ( !empty($routes[1]) )
@@ -45,8 +48,10 @@ class Route
             $param = $action_name;
             $action_name = 'page';
         }
-        if( $param_cnt >= 4 )
-            Route::ErrorPage404();
+
+        //wtf?
+        //if( $param_cnt >= 4 )
+        //    Route::ErrorPage404();
 
         // добавляем префиксы
         $model_name = 'Model_'.$controller_name;
@@ -57,7 +62,7 @@ class Route
         echo "Model: $model_name <br>";
         echo "Controller: $controller_name <br>";
         echo "Action: $action_name <br>";
-*/
+         */
         // подцепляем файл с классом контроллера
         $controller_file = strtolower($controller_name).'.php';
         $controller_path = "application/controllers/".$controller_file;
@@ -70,7 +75,7 @@ class Route
             /*
             правильно было бы кинуть здесь исключение,
             но для упрощения сразу сделаем редирект на страницу 404
-            */
+             */
             Route::ErrorPage404();
         }
         // создаем контроллер
