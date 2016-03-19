@@ -8,4 +8,5 @@ Url::init();
 Session::init();
 Application::getInstance();
 
+// Load bootstrap
 require_once("application/bootstrap.php");
