@@ -4,6 +4,7 @@
  * User: kiko
  * Date: 1/9/16
  * Time: 12:54 AM
+ * For USERS
  */
 
 $application = Application::getInstance();
@@ -14,7 +15,7 @@ $settings = $application->getSettings();
 $baseURI = Url::$baseurl;
 
 $login_status = Users::getLoginStatus();
-$login = Users::getLogin();
+$uid = Users::getUID();
 
 $prefix = $baseURI . "/templates/" . $template;
 

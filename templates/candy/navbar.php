@@ -9,7 +9,7 @@
 <div class="navbar navbar-default navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-left">
-            <div class="hello">Здравствуй, <? echo $login; ?></div>
+            <div class="hello">Здравствуй, <? echo $uid; ?></div>
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav">

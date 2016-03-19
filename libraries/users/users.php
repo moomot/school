@@ -8,8 +8,8 @@
  */
 class Users
 {
-    static function getLogin() {
-        if(Session::get("login") == "")
+    static function getUID() {
+        if(Session::get("uid") == "")
             return "Гость";
         else
             return Session::get("uid");
