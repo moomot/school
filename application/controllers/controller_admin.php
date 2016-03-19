@@ -310,6 +310,205 @@ class Controller_Admin extends Controller
         }
     }
 
+    function action_lectures()
+    {
+        if ($this->accessGranted())
+        {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            $data['lectures'] = $this->model->get_lectures();
+            $data['current_lecture']=-1;
+            if (!empty($routes[3]))
+            {
+                $data['current_lecture']=$routes[3];
+                $this->model->get_questions($data);
+            }
+            $this->view->generateAdminTpl($this->defaultPage . "/lectures/index.php", $data);
+        } 
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_add_lecture()
+    {
+        if($this->accessGranted())
+        {
+            if(isset($_POST['save']))
+            {
+                $this->model->add_lecture($_POST);
+                $this->forward_index($_POST['number']);
+            }
+            else
+            {
+                $data['create']=true;
+                $this->view->generateAdminTpl($this->defaultPage . "/lectures/handle_lecture.php",$data);
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_edit_lecture()
+    {
+        if($this->accessGranted())
+        {
+            if(isset($_POST['save']))
+            {
+                $this->model->edit_lecture($_POST);
+                $this->forward_index($_POST['number']);
+            }
+            else
+            {
+                $base = Url::$baseurl;
+                $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+                $routes = explode('/', $request_uri);
+                $data['number']=$routes[3];
+                $data['name']=$this->model->get_lecture_name($routes[3]);
+                $this->view->generateAdminTpl($this->defaultPage . "/lectures/handle_lecture.php",$data);
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_remove_lecture()
+    {
+        if($this->accessGranted())
+        {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            $this->model->remove_lecture($routes[3]);
+            $this->forward_index();
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_add_question()
+    {
+        if($this->accessGranted())
+        {
+            if(isset($_POST['save']))
+            {
+                $this->model->add_question($_POST);
+                $this->forward_index($_POST['lecture']);
+            }
+            else
+            {
+                $base = Url::$baseurl;
+                $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+                $routes = explode('/', $request_uri);
+                $data['lecture']=$routes[3];
+                $data['create']=true;
+                $this->view->generateAdminTpl($this->defaultPage . "/lectures/handle_question.php",$data);
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_edit_question()
+    {
+        if($this->accessGranted())
+        {
+            if(isset($_POST['save']))
+            {
+                $this->model->edit_question($_POST);
+                $this->forward_index($_POST['lecture']);
+            }
+            else
+            {
+                $base = Url::$baseurl;
+                $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+                $routes = explode('/', $request_uri);
+                $data['id']=$routes[3];
+                $result=$this->model->get_question_by_id($routes[3]);
+                $data=array_merge($data,$result);
+                $this->view->generateAdminTpl($this->defaultPage . "/lectures/handle_question.php",$data);
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_remove_question()
+    {
+        if($this->accessGranted())
+        {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            $this->model->remove_question($routes[3]);
+            $this->forward_index();
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_add_variant()
+    {
+        if($this->accessGranted())
+        {
+            if(isset($_POST['save']))
+            {
+                $this->model->add_variant($_POST);
+                $this->forward_index($_POST['lecture']);
+            }
+            else
+            {
+                $base = Url::$baseurl;
+                $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+                $routes = explode('/', $request_uri);
+                $data['question']=$routes[3];
+                $data['lecture']=$routes[4];
+                $this->view->generateAdminTpl($this->defaultPage . "/lectures/add_variant.php",$data);
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_remove_variant()
+    {
+        if($this->accessGranted())
+        {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            $this->model->remove_variant($routes[3]);
+            $this->forward_index($routes[4]);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    private function forward_index($lecture=-1)
+    {
+        $data['lectures'] = $this->model->get_lectures();
+        $data['current_lecture']=$lecture;
+        if($lecture!=-1) $this->model->get_questions($data);
+        $this->view->generateAdminTpl($this->defaultPage . "/lectures/index.php",$data);
+    }
 
     private function accessGranted()
     {

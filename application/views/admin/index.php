@@ -33,6 +33,10 @@ $prefix = $baseURI."/assets";
                    "url" => "/admin/list",
                    "content" => "<span class=\"glyphicon glyphicon-list\"></span> Список шкiл"
                ],
+                [
+                   "url" => "/admin/lectures",
+                   "content" => "<span class=\"glyphicon glyphicon-list\"></span> Редактор лекцій"
+               ],
                [
                    "url" => "/admin/messages",
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Повiдомлення"
