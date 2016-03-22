@@ -9,7 +9,17 @@
 class Controller_Admin extends Controller
 {
     public $defaultPage = "admin";
-    public $prefix = PATH_SITE . "/application/views/";
+    public $prefix;
+
+    /**
+     * Controller_Admin constructor.
+     * @param string $prefix
+     */
+    public function __construct() {
+        $this->view = new View();
+        $this->prefix = PATH_SITE . "/application/views/";
+    }
+
 
     function action_index()
     {
