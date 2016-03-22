@@ -514,6 +514,4 @@ class Controller_Admin extends Controller
     {
         return Users::getAdminLoginStatus()=="access_granted";
     }
-
-
 }
