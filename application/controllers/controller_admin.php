@@ -63,7 +63,7 @@ class Controller_Admin extends Controller
     function action_logout()
     {
         Session::destroy();
-        header('Location:' . Url::$baseurl);
+        header('Location:' . Url::$baseurl."/");
     }
 
     function action_settings()
