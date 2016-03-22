@@ -22,9 +22,9 @@ class Nav
      */
     public function __construct($baseURI) { $this->baseURI = $baseURI; }
 
-    function setModel(...$links)
+    function setModel()
     {
-        $this->links = $links;
+        $this->links = func_get_args();
         return $this;
     }
 
