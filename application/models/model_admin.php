@@ -417,7 +417,7 @@ class Model_Admin extends Model
     {
         try
         {
-            $sql = "SELECT number, name FROM lectures";
+            $sql = "SELECT number, name FROM lectures ORDER BY number";
 
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
@@ -431,14 +431,6 @@ class Model_Admin extends Model
             throw new CustomException("Query error");
         }
 
-        //sort lections for correct render order
-        foreach ($result as $key => $row)
-        {
-            $number[$key]  = $row['number'];
-            $name[$key] = $row['name'];
-        }
-        array_multisort($number, SORT_ASC, $name, SORT_ASC, $result);
-
         return $result;
     }
 
@@ -447,14 +439,14 @@ class Model_Admin extends Model
     {
         try
         {
-            $sql = "SELECT name FROM lectures WHERE number=$lecture";
-
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
 
-            $query = $_dbh->query($sql);
-            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $_dbh->prepare("SELECT name FROM lectures WHERE number=:lecture");
+            $stmt->bindParam(":lecture", $lecture);
+            $stmt->execute();
+            $result=$stmt->fetchAll();
         }
         catch (PDOException $e)
         {
@@ -477,9 +469,10 @@ class Model_Admin extends Model
             $_dbh->exec('SET NAMES utf8');
 
             //get questions for lecture
-            $sql = "SELECT id,question FROM questions WHERE lecture=$pdata[current_lecture]";
-            $query = $_dbh->query($sql);
-            $pdata['questions'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $_dbh->prepare("SELECT id,question FROM questions WHERE lecture=:lecture");
+            $stmt->bindParam(":lecture", $pdata['current_lecture']);
+            $stmt->execute();
+            $pdata['questions']=$stmt->fetchAll();
 
             //get variants and add to our questions
             foreach($pdata['questions'] as &$item)
@@ -576,8 +569,10 @@ class Model_Admin extends Model
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
 
-            $query = $_dbh->query($sql);
-            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $_dbh->prepare("SELECT lecture,question FROM questions WHERE id=:question");
+            $stmt->bindParam(":question", $question);
+            $stmt->execute();
+            $result=$stmt->fetchAll();
         }
         catch (PDOException $e)
         {
