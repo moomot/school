@@ -22,41 +22,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
-          <tr>
-              <td>3</td>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
-          <tr>
-              <td>3</td>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>Чернiгiв, вул. Шевченка 99</td>
-          </tr>
+        <?php foreach ($data as $item): ?>
+            <tr>
+                <td><?php echo $item['id']; ?></td>
+                <td><?php echo $item['firstname']; ?></td>
+                <td><?php echo $item['lastname']; ?></td>
+                <td><?php echo $item['login']; ?></td>
+                <td><?php echo $item['address']; ?></td>
+            </tr>
+        <?php endforeach; ?>
         </tbody>
       </table>
     </div>
