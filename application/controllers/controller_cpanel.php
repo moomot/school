@@ -179,6 +179,15 @@ class Controller_Cpanel extends Controller
         }
     }
 
+    function action_lections_settings()
+    {
+        if ($this->accessGranted()) {
+            $this->view->generateAdminTpl($this->defaultPage . "/lections_settings/index.php");
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
     private function accessGranted()
     {
         return Users::getSchoolLoginStatus()=="access_granted";

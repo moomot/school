@@ -61,7 +61,7 @@ Class Model_Cpanel extends Model {
             $_dbh->exec('SET NAMES utf8');
 
 
-            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, admins WHERE user_id = :user_id AND admins.uid = private_messages.user_id");
+            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, admins WHERE user_id = :user_id AND admins.uid = user2_id");
             $stmt->bindParam(":user_id", $uid);
 
             $stmt->execute();
