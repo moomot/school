@@ -165,6 +165,20 @@ Class Model_Cpanel extends Model {
         return $result;
     }
 
+    function get_users()
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            $stmt = $_dbh->query("SELECT login, lections_available FROM users");
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
 
 
 }
