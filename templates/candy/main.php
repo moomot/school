@@ -337,7 +337,7 @@ $prefix .= "/main_landing";
             <?php if ($login_status == "access_granted"): ?>
                 <a href="<? echo $baseURI . "/upanel"; ?>">Мій кабінет</a>
             <?php elseif ($login_status == "access_denied" OR $login_status == ""): ?>
-                <a href="<? echo $baseURI . "/user/login"; ?>">Почати навчання</a>
+                <a href="<? echo $baseURI . "/upanel"; ?>">Почати навчання</a>
             <?php endif; ?>
 
 
@@ -2032,7 +2032,7 @@ $prefix .= "/main_landing";
 
 
         <div class="block block-button is-button" id="block-new55">
-            <a href="<? echo $baseURI; ?>/static/ainfo">Автошколам</a>
+            <a href="<? echo $baseURI; ?>/cpanel">Автошколам</a>
 
 
         </div>
@@ -2227,7 +2227,7 @@ $prefix .= "/main_landing";
             <?php if ($login_status == "access_granted"): ?>
                 <a href="<? echo $baseURI . "/upanel"; ?>">Мій кабінет</a>
             <?php elseif ($login_status == "access_denied" OR $login_status == ""): ?>
-                <a href="<? echo $baseURI . "/user/login"; ?>">Почати</a>
+                <a href="<? echo $baseURI . "/upanel"; ?>">Почати</a>
             <?php endif; ?>
 
 

@@ -20,13 +20,12 @@
             if(data[i]['name']==$(this).text())
             {
                 $("#ticket_ref").attr("href",
-                    "upanel/tickets/"+data[i]['number']);
+                    "tickets/"+data[i]['number']);
                 break;
             }
         }
     });
 
-    //imitate click for 1st video
 
     $('.videos').slick({
         infinite: true,
@@ -64,7 +63,7 @@
                 if(nodes.eq(i).prop("checked")==true)
                 {
                     if (is_correct[i]) correct++;
-                    else incorrect++;
+                    else incoupanelrrect++;
                 }
             }
             alert(mark);
@@ -79,9 +78,16 @@
             else load_question(current_question);
         });
     }
+    //TODO Пофиксить, подгружать load_question только на странице с вопросами. В этом видет она подгружается по всему сайту.
     load_question(current_question);
 });
 
 var current_question=0;
 var is_correct={};
 var mark=0;
+
+//imitate click on video
+//НЕ БУДЕТ РАБОТАТЬ БЕЗ ФИКСА ВЫШЕ
+$(document).ready(function () {
+   $(".videos").find("div:first-child").click();
+});
