@@ -8,6 +8,33 @@
  */
 class Model_Upanel extends Model
 {
+    function get_user_auth_data($login) {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT password, uid FROM users WHERE login=:login");
+            $stmt->bindParam(":login", $login);
+            $stmt->execute();
+            $out_data = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($out_data) {
+                $data['status'] = true;
+            } else {
+                if($stmt->rowCount() == 0)
+                {
+                    $data['status'] = false;
+                }
+            }
+            $data['password'] = $out_data['password'];
+            $data['uid'] = $out_data['uid'];
+
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $data;
+    }
     function get_lectures()
     {
         try

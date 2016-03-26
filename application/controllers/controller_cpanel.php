@@ -69,13 +69,104 @@ class Controller_Cpanel extends Controller
 
     function action_list()
     {
-        if ( $this->accessGranted() ) {
-            $data = $this->model->get_students_list();
-            $this->view->generateCpTpl($this->defaultPage."/list/index.php", $data);
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                $data = $this->model->get_user_by_login($routes[3]);
+                if ($this->model->is_user_exists($routes[3])) {
+                    $this->view->generateCpTpl($this->defaultPage . "/list/user.php", $data);
+                } else {
+                    $data['message'] = "Школа не знайдена";
+                    $this->view->generateCpTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            } else {
+                $data = $this->model->get_students_list();
+                $this->view->generateCpTpl($this->defaultPage . "/list/index.php", $data);
+            }
+
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_add_user()
+    {
+        if ($this->accessGranted()) {
+            if (isset($_POST['add'])) {
+                $_POST['password'] = md5($_POST['password']);
+                $result = $this->model->add_user($_POST);
+                if ($result) {
+                    $data['message'] = "Студент успiшно створений!";
+                    $this->view->generateCpTpl($this->defaultPage . "/errors/info.php", $data);
+                } else {
+                    $data['message'] = "Помилка у долученнi студента!";
+                    $this->view->generateCpTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+
+            } else {
+                $this->view->generateCpTpl($this->defaultPage . "/list/add.php");
+            }
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_edit_user()
+    {
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                $data = $this->model->get_user_by_login($routes[3]);
+                if ($this->model->is_user_exists($routes[3])) {
+                    $this->view->generateCpTpl($this->defaultPage . "/list/edit.php", $data);
+                } else {
+                    $data['message'] = "Школа не знайдена";
+                    $this->view->generateCpTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            } else {
+                $data = $this->model->get_schools();
+                $this->view->generateCpTpl($this->defaultPage . "/list/index.php", $data);
+            }
+
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_save_user()
+    {
+        if ($this->accessGranted()) {
+            $this->model->save_user($_POST);
         }
         else
         {
-            $this->redirect_to_main("/".$this->defaultPage);
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_remove_user()
+    {
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                if ($this->model->remove_user($routes[3])) {
+                    $data['message'] = "Видалено успiшно!";
+                    $this->view->generateCpTpl($this->defaultPage . "/errors/info.php", $data);
+                } else {
+                    $data['message'] = "Помилка при видаленнi";
+                    $this->view->generateCpTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
         }
     }
 

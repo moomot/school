@@ -25,4 +25,8 @@ class Users
     static function getSchoolLoginStatus() {
         return Session::get("school_login_status");
     }
+
+    static function getUserLoginStatus() {
+        return Session::get("user_login_status");
+    }
 }

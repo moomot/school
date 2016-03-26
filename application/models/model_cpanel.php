@@ -146,7 +146,7 @@ Class Model_Cpanel extends Model {
         return $result;
     }
 
-    private function is_user_exists($login) {
+    function is_user_exists($login) {
         try {
 
             $db = Database::getInstance();
@@ -180,5 +180,112 @@ Class Model_Cpanel extends Model {
         return $result;
     }
 
+    function add_user($data) {
+        if ($this->is_user_exists($data['login'])) {
+            return false;
+        }
+        try {
+            unset($data['add']);
+
+            $school_id = Session::get("uid");
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            // SELECT UID
+            $result = $_dbh->query("SELECT * FROM unical_users_id");
+            $uid = $result->fetch(PDO::FETCH_ASSOC);
+            $uid = $uid['uid'];
+
+            // INSERT USER
+            $stmt = $_dbh->prepare("INSERT INTO `users`(`login`, `firstname`, `lastname`, `address`, `school_id`, `password`, `uid`) VALUES (:login, :firstname, :lastname, :address, :school_id, :password, :uid)");
+
+            $stmt->bindParam(":login", $data['login']);
+            $stmt->bindParam(":address", $data['address']);
+            $stmt->bindParam(":password", $data['password']);
+            $stmt->bindParam(":firstname", $data['firstname']);
+            $stmt->bindParam(":lastname", $data['lastname']);
+            $stmt->bindParam(":school_id", $school_id);
+            $stmt->bindParam(":uid", $uid);
+
+            $result = $stmt->execute();
+
+
+            // INCREMENT unical_users_id uid field
+            $_dbh->query("UPDATE `unical_users_id` SET `uid` = `uid` + 1 WHERE 1");
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function save_user($data)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            // UPDATE USER
+            $stmt = $_dbh->prepare("UPDATE users SET `login`=:login, `address` = :address, `password` = :password, `firstname` = :firstname, `lastname` = :lastname, `status` = :status WHERE `uid` = :uid");
+
+            $pass = md5($data['password']);
+
+            $stmt->bindParam(":login", $data['login']);
+            $stmt->bindParam(":address", $data['address']);
+            $stmt->bindParam(":password", $pass);
+            $stmt->bindParam(":firstname", $data['firstname']);
+            $stmt->bindParam(":lastname", $data['lastname']);
+            $stmt->bindParam(":status", $data['status']);
+            $stmt->bindParam(":uid", $data['uid']);
+
+            $result = $stmt->execute();
+
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function remove_user($login) {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            // UPDATE USER
+            $stmt = $_dbh->prepare("DELETE FROM users WHERE `login` = :login");
+
+            $stmt->bindParam(":login", $login);
+
+            $result = $stmt->execute();
+
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_user_by_login($login) {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT * FROM users WHERE login=:login");
+            $stmt->bindParam(":login", $login);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
 
 }

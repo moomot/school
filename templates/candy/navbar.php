@@ -21,8 +21,8 @@
                 <?php endif; ?>
                 <li class="disabled"><a href="<? echo $baseURI; ?>/static/zaconodavstvo">Законодавство</a></li>
                 <?php if($login_status == "access_granted"): ?>
-                    <li><a href="<? echo $baseURI; ?>/user/terms">Термiни</a></li>
-                    <li><a href="<? echo $baseURI; ?>/user/logout">Выход</a></li>
+                    <li><a href="<? echo $baseURI; ?>/upanel/terms">Термiни</a></li>
+                    <li><a href="<? echo $baseURI; ?>/upanel/logout">Выход</a></li>
                 <?php endif; ?>
             </ul>
         </div>

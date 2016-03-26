@@ -49,9 +49,9 @@ class Route
             $action_name = 'page';
         }
 
-        //wtf?
-        //if( $param_cnt >= 4 )
-        //    Route::ErrorPage404();
+        // если параметров больше чем нужно. что бы не было action/user/1/2/3/4/5/6/7/8
+        if( $param_cnt >= 4 )
+            Route::ErrorPage404();
 
         // добавляем префиксы
         $model_name = 'Model_'.$controller_name;
