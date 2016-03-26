@@ -45,7 +45,7 @@
             </div>
             <hr>
             <div class="panel panel-default">
-                <a id="ticket_ref" class="btn btn-primary btn-block" href="upanel/tickets">Почати тест</a>
+                <a id="ticket_ref" class="btn btn-primary btn-block" href="<? echo $baseURI; ?>/upanel/tickets">Почати тест</a>
             </div>
         </div>
     </div>

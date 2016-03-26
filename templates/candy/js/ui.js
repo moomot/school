@@ -61,7 +61,7 @@
             {
                 if (is_correct[i]==1) count_correct++;
                 else count_incorrect++;
-                if(nodes[i].prop("checked")==true)
+                if(nodes.eq(i).prop("checked")==true)
                 {
                     if (is_correct[i]) correct++;
                     else incorrect++;

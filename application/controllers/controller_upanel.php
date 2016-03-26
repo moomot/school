@@ -103,7 +103,7 @@ class Controller_UPanel extends Controller
         {
             $request_uri=$_SERVER['REQUEST_URI'];
             $routes = explode('/', $request_uri);
-            $data['current_lecture']=$routes[3];
+            $data['current_lecture']=$routes[4];
             $this->get_questions($data);
             $this->view->generate("users/tickets.php",$data);
         }
