@@ -7,6 +7,10 @@
  */
 ?>
 
+<script type="text/javascript">
+    var data= <? echo json_encode($data); ?> ;
+</script>
+
 <div class="row">
     <div class="well well-sm">
         Панель користувача
@@ -26,24 +30,10 @@
     <div class="col-md-9 col-lg-9 col-sm-12 center_container">
         <div class="well well-sm" style="padding-bottom: 50px">
             <div class="videos">
-                <div>
-    video1
-                </div>
-                <div>
-                    video2
-                </div>
-                <div>
-                    video3
-                </div>
-                <div>
-                    video4
-                </div>
-                <div>
-                    video5
-                </div>
+
             </div>
             <hr>
-            <div class="panel panel-default">
+            <div id="video_panel" class="panel panel-default">
                 <div class="panel-heading">Урок 1. Загальнi положення</div>
                 <div class="panel-body">
                     <video width="827" height="400" controls>
@@ -55,10 +45,7 @@
             </div>
             <hr>
             <div class="panel panel-default">
-                <div class="panel-heading">Тест</div>
-                <div class="panel-body">
-                    контент теста
-                </div>
+                <a id="ticket_ref" class="btn btn-primary btn-block" href="upanel/tickets">Почати тест</a>
             </div>
         </div>
     </div>

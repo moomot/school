@@ -7,6 +7,12 @@
  */
 ?>
 
+<link type="text/javascript" rel="../js/jquery-1.11.1.min.js" />
+<script type="text/javascript">
+    var data= <? echo json_encode($data); ?> ;
+    data=data['questions'];
+</script>
+
 <div class="row">
     <div class="well well-sm">
         Панель користувача
@@ -28,37 +34,17 @@
 
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Бiлети</div>
+                <div class="panel-heading">Перевірка знань</div>
 
                 <!-- Table -->
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th>Номер бiлету</th>
+                    <tr id="question">
+
                     </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Бiлет 1. Текст</td>
-                        </tr>
-                        <tr>
-                            <td>Бiлет 2. Текст</td>
-                        </tr>
-                        <tr>
-                            <td>Бiлет 3. Текст</td>
-                        </tr>
-                        <tr>
-                            <td>Бiлет 4. Текст</td>
-                        </tr>
-                        <tr>
-                            <td>Бiлет 5. Текст</td>
-                        </tr>
-                        <tr>
-                            <td>Бiлет 6. Текст</td>
-                        </tr>
-                        <tr>
-                            <td>Бiлет 7. Текст</td>
-                        </tr>
+                    <tbody id="variants">
+                        
                     </tbody>
                 </table>
             </div>
