@@ -378,7 +378,8 @@ class Model_Admin extends Model
     }
 
     function add_page($data) {
-        if ($this->is_page_exists($data['page_name'])) {
+        $url = Url::formURL($data['title']);
+        if ($this->is_page_exists($url)) {
             return false;
         }
         try {
@@ -396,15 +397,42 @@ class Model_Admin extends Model
 
             $stmt = $_dbh->prepare("INSERT INTO static_pages (title, content, timestamp, status, comments_status, url)
                                     VALUES (:title, :content, :timestamp, :status, :comments_status, :url)");
-
             $stmt->bindParam(":title", $data['title']);
             $stmt->bindParam(":content", $data['content']);
             $stmt->bindParam(":timestamp", $timestamp);
             $stmt->bindParam(":status", $data['status']);
             $stmt->bindParam(":comments_status", $data['comments_status']);
-            $stmt->bindParam(":url", $data['url']);
+            $stmt->bindParam(":url", $url);
 
             $result = $stmt->execute();
+
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function save_page($data)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            // UPDATE USER
+            $stmt = $_dbh->prepare("UPDATE static_pages SET `title`=:title, `content` = :content, `url` = :url, `comments_status` = :comments_status, `status` = :status WHERE `id` = :id");
+
+            $url = Url::formURL($data['title']);
+            $stmt->bindParam(":title", $data['title']);
+            $stmt->bindParam(":content", $data['content']);
+            $stmt->bindParam(":url", $url);
+            $stmt->bindParam(":comments_status", $data['comments_status']);
+            $stmt->bindParam(":status", $data['status']);
+            $stmt->bindParam(":id", $data['id']);
+
+            $result = $stmt->execute();
+
             $_dbh = null;
 
         } catch (PDOException $e) {

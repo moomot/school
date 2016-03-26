@@ -320,6 +320,41 @@ class Controller_Admin extends Controller
         }
     }
 
+    function action_edit_page()
+    {
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                $data = $this->model->get_page_by_url($routes[3]);
+                if ($this->model->is_page_exists($routes[3])) {
+                    $this->view->generateAdminTpl($this->defaultPage . "/pages/edit.php", $data);
+                } else {
+                    $data['message'] = "Школа не знайдена";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            } else {
+                $data = $this->model->get_pages();
+                $this->view->generateAdminTpl($this->defaultPage . "/pages/index.php", $data);
+            }
+
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_save_page()
+    {
+        if ($this->accessGranted()) {
+            $this->model->save_page($_POST);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
     function action_lectures()
     {
         if ($this->accessGranted())

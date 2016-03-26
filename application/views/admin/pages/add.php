@@ -19,22 +19,12 @@
 
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-        <input type="text" class="form-control" required name="phone" value=""  placeholder="Статус пуб.">
+        <input type="text" class="form-control" required name="status" value=""  placeholder="Статус публикации (1, 0)">
     </div>
 
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-        <input type="text" class="form-control" required name="full_name" value=""  placeholder="Полное название">
+        <input type="text" class="form-control" required name="comments_status" value=""  placeholder="Статус комментариев (1, 0)">
     </div>
-
-    <div class="input-group">
-        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-        <input type="text" class="form-control" required name="description" value=""  placeholder="Описание">
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-        <input type="text" class="form-control" required name="address" value=""  placeholder="Адрес">
-    </div>
-
     <p><input type="submit" class="btn btn-success btn-block" name="add" value="Додати &rarr;"/></p>
 </form>

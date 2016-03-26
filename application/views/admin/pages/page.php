@@ -40,8 +40,8 @@
             </tbody>
         </table>
         <div class="text-right">
-            <a href="<? echo $baseURI; ?>/admin/edit_page/<? echo $data['id']; ?>" class="btn btn-default btn-primary">Редагувати</a>
-            <a href="<? echo $baseURI; ?>/admin/remove_page/<? echo $data['id']; ?>" class="btn btn-default btn-danger">Видалити</a>
+            <a href="<? echo $baseURI; ?>/admin/edit_page/<? echo $data['url']; ?>" class="btn btn-default btn-primary">Редагувати</a>
+            <a href="<? echo $baseURI; ?>/admin/remove_page/<? echo $data['url']; ?>" class="btn btn-default btn-danger">Видалити</a>
         </div>
     </div>
 
