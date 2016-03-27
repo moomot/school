@@ -93,23 +93,28 @@ class Controller_UPanel extends Controller
     function action_tickets()
     {
         if($this->accessGranted())
+                $this->view->generate("users/tickets.php");
+        else
+            $this->redirect_to_main($this->defaultPage);
+    }
+
+	function action_test()
+    {
+        if($this->accessGranted())
         {
             $request_uri=$_SERVER['REQUEST_URI'];
             $routes = explode('/', $request_uri);
-            if (!empty($routes[4])) {
+            if (!empty($routes[4]))
+			{
                 $data['current_lecture'] = $routes[4];
                 $this->model->get_questions($data);
-                $this->view->generate("users/tickets.php", $data);
-            } else {
-                // Пофиксить. Если на страницу "Билеты" заходит, то тут будет список билетов.
-                $this->view->generate("users/tickets.php");
+                $this->view->generate("users/test.php", $data);
             }
         }
         else
             $this->redirect_to_main($this->defaultPage);
     }
-
-
+	
     private function accessGranted()
     {
         return Users::getUserLoginStatus()=="access_granted";

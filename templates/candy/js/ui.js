@@ -20,7 +20,7 @@
             if(data[i]['name']==$(this).text())
             {
                 $("#ticket_ref").attr("href",
-                    "tickets/"+data[i]['number']);
+                    "test/"+data[i]['number']);
                 break;
             }
         }
@@ -35,9 +35,4 @@
 
     //end video ui
 
-});
-
-//imitate click on video
-$(document).ready(function () {
-   $(".videos").find("div:first-child").click();
 });
