@@ -15,7 +15,40 @@
 <body>
     <?php include "navbar.php"; ?>
     <div class="container">
-        <?php include $this->getView(); ?>
+        <div class="col-md-3">
+            <div class="well well-sm">
+                <?
+                $nav = new Nav($baseURI);
+                $nav->setModel(
+                    [
+                        "url" => '/upanel',
+                        "content" => "<span class=\"glyphicon glyphicon-home\"></span> Головна"
+                    ],
+                    [
+                        "url" => "/upanel/lessons",
+                        "content" => "<span class=\"glyphicon glyphicon-list\"></span> Заняття"
+                    ],
+                    [
+                        "url" => "/upanel/messages",
+                        "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Повiдомлення"
+                    ],
+                    [
+                        "url" => "/upanel/tickets",
+                        "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Бiлети"
+                    ],
+                    [
+                        "url" => "/upanel/schedule",
+                        "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Розклад занять"
+                    ]
+                )->render("nav nav-pills nav-stacked");
+                ?>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="well well-sm">
+                <?php include $this->getView(); ?>
+            </div>
+        </div>
     </div>
     <script src="<? echo $prefix; ?>/js/moment-with-locales.js"></script>
     <script src="<? echo $prefix; ?>/js/bootstrap.min.js"></script>

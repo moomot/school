@@ -57,7 +57,7 @@ class Controller_UPanel extends Controller
         if($this->accessGranted())
         {
             $data=$this->model->get_lectures();
-            $this->view->generate("users/lessons.php",$data);
+            $this->view->generate("users/upanel.php",$data);
         }
         else
             $this->view->generate("users/login_form.php");
