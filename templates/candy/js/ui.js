@@ -21,8 +21,9 @@
         {
             if(data[i]['name']==$(this).text())
             {
+                var location = document.location.href;
                 $("#ticket_ref").attr("href",
-                    "test/"+data[i]['number']);
+                    location+"/test/"+data[i]['number']);
                 break;
             }
         }
