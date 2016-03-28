@@ -9,11 +9,6 @@
 
 <script type="text/javascript">
     var data= <? echo json_encode($data); ?> ;
-	
-	//imitate click on video
-	$(document).ready(function () {
-	   $(".videos").find("div:first-child").click();
-	});
 </script>
 
 <div class="row">

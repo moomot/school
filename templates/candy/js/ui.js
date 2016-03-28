@@ -3,10 +3,12 @@
     //video ui
 
     var videos=$(".videos");
-    for(var i=0; i<data.length; i++)
-    {
-        videos.append("<div data-videourl=video"+data[i]['number']+">"
-            +data[i]['name']+"</div>");
+    if(typeof data != 'undefined') {
+        for(var i=0; i<data.length; i++)
+        {
+            videos.append("<div data-videourl=video"+data[i]['number']+">"
+                +data[i]['name']+"</div>");
+        }
     }
 
     var panel=$("#video_panel");
@@ -34,5 +36,10 @@
     });
 
     //end video ui
+
+    //imitate click on video
+    $(document).ready(function () {
+        $(".videos").find("div:first-child").click();
+    });
 
 });
