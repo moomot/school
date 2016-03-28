@@ -83,7 +83,7 @@
                     }
                     if(nodes.eq(i).prop("checked")==true)
                     {
-                        if (is_correct[i])
+                        if (is_correct[i] == 1)
                             correct++;
                         else
                             incorrect++;
