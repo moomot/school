@@ -40,13 +40,17 @@ $prefix = $baseURI."/assets";
                [
                    "url" => "/cpanel/lections_settings",
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Налаштування лекцiй"
+               ],
+               [
+                   "url" => "/cpanel/feedback",
+                   "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Зворотнiй зв'язок"
                ]
            )->render("nav nav-pills nav-stacked");
            ?>
        </div>
    </div>
-    <div class="col-md-9">
-        <div class="well well-sm">
+    <div class="col-md-9 left_container">
+        <div class="right-panel">
             <?php include $this->getPrivateView(); ?>
         </div>
     </div>

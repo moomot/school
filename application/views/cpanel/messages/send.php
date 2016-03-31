@@ -8,7 +8,7 @@
 ?>
 
 <div class="row sendform col-lg-12">
-    <form action="" class="message_submit" method="post" accept-charset="utf-8">
+    <form action="submit_send_message" class="message_submit" method="post" accept-charset="utf-8">
         <div class="form-group col-lg-12">
             <input type="hidden" name="school_name" id="template" value="Оберiть отримувача">
             <div class="dropdown settings-dropdown">

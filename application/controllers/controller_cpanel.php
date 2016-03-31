@@ -281,6 +281,15 @@ class Controller_Cpanel extends Controller
         }
     }
 
+    function action_feedback()
+    {
+        if ($this->accessGranted()) {
+            $this->view->generateCpTpl($this->defaultPage . "/feedback/index.php");
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
     private function accessGranted()
     {
         return Users::getSchoolLoginStatus()=="access_granted";

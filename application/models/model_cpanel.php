@@ -61,7 +61,7 @@ Class Model_Cpanel extends Model {
             $_dbh->exec('SET NAMES utf8');
 
 
-            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, admins WHERE user_id = :user_id AND admins.uid = user2_id");
+            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, users WHERE user_id = :user_id AND users.uid = user2_id");
             $stmt->bindParam(":user_id", $uid);
 
             $stmt->execute();
@@ -96,7 +96,7 @@ Class Model_Cpanel extends Model {
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
-            $stmt = $_dbh->query("SELECT login, uid FROM admins UNION SELECT login, uid FROM users");
+            $stmt = $_dbh->query("SELECT login, uid FROM users");
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $_dbh = null;
         } catch (PDOException $e) {
@@ -117,7 +117,7 @@ Class Model_Cpanel extends Model {
             $_dbh->exec('SET NAMES utf8');
 
             // Get school id by login
-            $stmt = $_dbh->prepare("SELECT uid FROM admins WHERE login = :login UNION SELECT uid FROM users WHERE login = :login");
+            $stmt = $_dbh->prepare("SELECT uid FROM users WHERE login = :login");
             $stmt->bindParam(":login", $data['school_name']);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
