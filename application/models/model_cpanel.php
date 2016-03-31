@@ -288,4 +288,94 @@ Class Model_Cpanel extends Model {
         return $result;
     }
 
+    /* Ticket feedback */
+    function send_ticket($data)
+    {
+        $uid = Session::get("uid");
+        try {
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            // Get timestamp
+            $date = new DateTime();
+            $timestamp = $date->getTimestamp();
+
+
+            // INSERT PM
+            $stmt = $_dbh->prepare("INSERT INTO feedback (`title`) VALUES (:title)");
+
+            $stmt->bindParam(":title", $data['title']);
+            $result = $stmt->execute();
+            if( $result != null ) {
+                $feedback_id = $_dbh->lastInsertId();
+                $stmt = $_dbh->prepare("INSERT INTO feedback_messages (ticket_id, user_id, timestamp, message) VALUES (:ticket_id, :user_id, :timestamp, :message)");
+                $stmt->bindParam(":message", $data['message']);
+                $stmt->bindParam(":timestamp", $timestamp);
+                $stmt->bindParam(":user_id", $uid);
+                $stmt->bindParam(":ticket_id", $feedback_id);
+                $result = $stmt->execute();
+            }
+
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_tickets($status)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $result = $_dbh->query("SELECT * FROM feedback WHERE status = $status")->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_ticket_options($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT * FROM feedback WHERE id=:id");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_ticket($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT fm.id, fm.user_id, fm.timestamp, fm.message FROM feedback f, feedback_messages fm WHERE f.id=:id AND f.id = fm.ticket_id ");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+    /* *************************** */
+
 }

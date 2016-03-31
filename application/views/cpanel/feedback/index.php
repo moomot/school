@@ -16,19 +16,21 @@
             </h4>
         </div>
             <div id="collapseOne" class="list-group panel-collapse collapse in">
-                <a href="#" class="list-group-item active">
-                    Cras justo odio
-                </a>
-                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item">Vestibulum at eros</a>
+                <?php if($data['active_tickets'] == null) :?>
+                    <div class="panel-body">
+                        Активних тiкетiв не iснує
+                    </div>
+                <?php else: ?>
+                    <?php foreach ($data['active_tickets'] as $item): ?>
+                        <a href="<? echo $baseURI . "/cpanel/feedback/" . $item['id']; ?>" class="list-group-item"><?php echo $item['title'] ?></a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
 
     </div>
     <br>
     <div class="text-right">
-        <a href="#" class="btn btn-default btn-success">Створити тiкет</a>
+        <a href="<? echo $baseURI; ?>/cpanel/create_ticket" class="btn btn-default btn-success">Створити тiкет</a>
     </div>
     <br>
     <div class="panel panel-default">
@@ -39,10 +41,16 @@
                 </a>
             </h4>
         </div>
-        <div id="collapseTwo" class="panel-collapse collapse">
-            <div class="panel-body">
-                xffs
-            </div>
+        <div id="collapseTwo" class="list-group panel-collapse collapse">
+                <?php if($data['inactive_tickets'] == null) :?>
+                    <div class="panel-body">
+                        Закритих тiкетiв не iснує
+                    </div>
+                <?php else: ?>
+                    <?php foreach ($data['inactive_tickets'] as $item): ?>
+                        <a href="#" class="list-group-item"><?php echo $item['title'] ?></a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
         </div>
     </div>
 </div>

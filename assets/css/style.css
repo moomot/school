@@ -94,3 +94,6 @@ a img {border:0;}
 .nobottompadding {
     padding-bottom: 0 !important;
 }
+.feedback-ticket {
+    padding: 10px 0 !important;
+}

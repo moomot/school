@@ -281,14 +281,54 @@ class Controller_Cpanel extends Controller
         }
     }
 
+    /* Feedback */
     function action_feedback()
     {
         if ($this->accessGranted()) {
-            $this->view->generateCpTpl($this->defaultPage . "/feedback/index.php");
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                $data['opt'] = $this->model->get_ticket_options($routes[3]);
+                $data['data'] = $this->model->get_ticket($routes[3]);
+                $this->view->generateCpTpl($this->defaultPage . "/feedback/ticket.php", $data);
+            } else {
+                $data['active_tickets'] = $this->model->get_tickets(1);
+                $data['inactive_tickets'] = $this->model->get_tickets(0);
+                $this->view->generateCpTpl($this->defaultPage . "/feedback/index.php", $data);
+            }
         } else {
             $this->redirect_to_main("/" . $this->defaultPage);
         }
     }
+
+    function action_create_ticket()
+    {
+        if ($this->accessGranted()) {
+            $this->view->generateCpTpl($this->defaultPage . "/feedback/create_ticket.php");
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_submit_ticket()
+    {
+        if ($this->accessGranted() && !empty($_POST)) {
+            ob_clean();
+            ob_start();
+            $result = $this->model->send_ticket($_POST);
+            if ($result) {
+                $data['message'] = "Тiкет успiшно створений!";
+                include $this->prefix . $this->defaultPage . "/errors/info.php";
+            } else {
+                $data['message'] = "Помилка!";
+                include $this->prefix . $this->defaultPage . "/errors/critical.php";
+            }
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+    /************************/
 
     private function accessGranted()
     {
