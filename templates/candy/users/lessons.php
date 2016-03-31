@@ -18,7 +18,7 @@
 <div id="video_panel" class="panel panel-default">
     <div class="panel-heading">Урок 1. Загальнi положення</div>
     <div class="panel-body">
-        <video width="827" height="400" controls>
+        <video width="774" height="397" controls>
             <source src="<? echo $baseURI; ?>/assets/video/video1.mp4" type="video/mp4">
             <source src="movie.ogg" type="video/ogg">
             Your browser does not support the video tag.

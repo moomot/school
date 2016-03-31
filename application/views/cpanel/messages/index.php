@@ -26,4 +26,4 @@
     </div>
 
 </div>
-<a href="<? echo $baseURI; ?>/cpanel/send_message" class="btn-default btn btn-primary center-block">Вiдправити повiдомлення</a>
+<a href="<? echo $baseURI; ?>/cpanel/messages/send" class="btn-default btn btn-primary center-block">Вiдправити повiдомлення</a>
