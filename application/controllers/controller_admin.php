@@ -547,6 +547,27 @@ class Controller_Admin extends Controller
         }
     }
 
+    function action_choose_video()
+    {
+        if($this->accessGranted())
+        {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            foreach( $_FILES as $file )
+            {
+                $res=finfo_open(FILEINFO_MIME_TYPE);
+                if(finfo_file($res,$file['tmp_name'])=="video/mp4")
+                    move_uploaded_file($file['tmp_name'], ".../uploads/videos/video".$routes[4]);
+            }
+            $this->forward_index($routes[4]);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
     private function forward_index($lecture=-1)
     {
         $data['lectures'] = $this->model->get_lectures();
