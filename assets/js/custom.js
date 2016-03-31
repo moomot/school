@@ -136,8 +136,7 @@ $(function () {
    var $message_sbm = $(".message_submit");
     $message_sbm.submit(function (e) {
         e.preventDefault();
-        var action = $(this).attr("action");
-        alert(action);
+        var action = "submit_send_message";
         $.ajax({ // инициaлизируeм ajax зaпрoс
             type: 'POST', // oтпрaвляeм в POST фoрмaтe, мoжнo GET
             url: action, // путь дo oбрaбoтчикa, у нaс oн лeжит в тoй жe пaпкe

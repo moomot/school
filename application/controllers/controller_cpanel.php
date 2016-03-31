@@ -172,24 +172,24 @@ class Controller_Cpanel extends Controller
 
     function action_messages()
     {
+        if ( $this->accessGranted() )
+            $this->view->generateCpTpl($this->defaultPage."/messages/index.php");
+        else
+            $this->redirect_to_main("/".$this->defaultPage);
+    }
+
+    function action_send_message()
+    {
+
         if ( $this->accessGranted() ) {
-            $base = Url::$baseurl;
-            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
-            $routes = explode('/', $request_uri);
-            if (!empty($routes[3])) {
-                if($routes[3] == "send") {
-                    $data = $this->model->get_receivers();
-                    $this->view->generateCpTpl($this->defaultPage."/messages/send.php", $data);
-                } else {
-                    Route::ErrorPage404();
-                }
-            } else {
-                $this->view->generateCpTpl($this->defaultPage . "/messages/index.php");
-            }
+            $data = $this->model->get_receivers();
+            $this->view->generateCpTpl($this->defaultPage."/messages/send.php", $data);
         }
-        else {
+        else
+        {
             $this->redirect_to_main("/".$this->defaultPage);
         }
+
     }
 
     /**
