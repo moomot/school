@@ -577,6 +577,76 @@ class Controller_Admin extends Controller
         $this->view->generateAdminTpl($this->defaultPage . "/lectures/index.php",$data);
     }
 
+    function action_tickets()
+    {
+        if ($this->accessGranted())
+        {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            $data['tickets'] = $this->model->get_tickets();
+            $data['ticket']=-1;
+            if (!empty($routes[3]))
+            {
+                $data['ticket']=$routes[3];
+                $this->model->get_ticket_data($data);
+            }
+            $this->view->generateAdminTpl($this->defaultPage . "/tickets/index.php", $data);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_add_ticket()
+    {
+        if ($this->accessGranted())
+        {
+            $this->model->add_ticket($_POST['name']);
+            $data['tickets']=$this->model->get_tickets();
+            $data['ticket']=-1;
+            $this->view->generateAdminTpl($this->defaultPage . "/tickets/index.php", $data);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_remove_ticket()
+    {
+        if ($this->accessGranted())
+        {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            $this->model->remove_ticket($routes[3]);
+            $data['tickets']=$this->model->get_tickets();
+            $data['ticket']=-1;
+            $this->view->generateAdminTpl($this->defaultPage . "/tickets/index.php", $data);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_set_ticket_data()
+    {
+        if ($this->accessGranted())
+        {
+            $this->model->set_ticket_data($_POST);
+            $data['ticket']=$_POST['ticket'];
+            $this->model->get_ticket_data($data);
+            $this->view->generateAdminTpl($this->defaultPage . "/tickets/index.php", $data);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
     private function accessGranted()
     {
         return Users::getAdminLoginStatus()=="access_granted";

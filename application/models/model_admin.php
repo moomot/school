@@ -726,4 +726,182 @@ class Model_Admin extends Model
         }
         return $result;
     }
+
+    function get_tickets()
+    {
+        try
+        {
+            $sql = "SELECT id, name FROM tickets";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $query = $_dbh->query($sql);
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+
+        return $result;
+    }
+
+    function get_questions_of_ticket(&$pdata)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            //get questions for ticket
+            $stmt = $_dbh->prepare("SELECT questions FROM tickets WHERE id=:id");
+            $stmt->bindParam(":id", $pdata['ticket']);
+            $stmt->execute();
+            $q=$stmt->fetchAll();
+            $pdata['questions']=explode(",",$q[0]['questions']);
+
+            if($pdata['questions'][0]=="")
+            {
+                unset($pdata['questions'][0]);
+                return;
+            }
+
+            //get variants and add to our questions
+            foreach($pdata['questions'] as &$item)
+            {
+                $sql="select id,question from questions where id=$item";
+                $query=$_dbh->query($sql);
+                $item=$query->fetch(PDO::FETCH_ASSOC);
+
+                $sql = "SELECT id,answer,correct FROM variants WHERE question=$item[id]";
+                $query = $_dbh->query($sql);
+                $item['variants'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            }
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+    }
+
+    function add_ticket($name)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("INSERT INTO tickets (name)
+                                    VALUES (:name)");
+
+            $stmt->bindParam(":name", $name);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function remove_ticket($ticket)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("delete from tickets
+                                    where id=:id");
+
+            $stmt->bindParam(":id", $ticket);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    /**
+     * /
+     * @param mixed $pdata [in,out]
+     * input values: pdata[ticket] (id of ticket)
+     * output format: pdata => [ticket,name,lectures => array[name,questions => array[id,question,included]]]
+     * pdata[i_lecture][j_question][included]=1 if id of j_question is already present in ticket
+     */
+    function get_ticket_data(&$pdata)
+    {
+        $db = Database::getInstance();
+        $_dbh = $db->getConnection();
+        $_dbh->exec('SET NAMES utf8');
+
+        $stmt = $_dbh->prepare("SELECT id, name, questions FROM tickets WHERE id=:id");
+        $stmt->bindParam(":id", $pdata['ticket']);
+        $stmt->execute();
+        $data=$stmt->fetch(PDO::FETCH_ASSOC);
+        $pdata['name']=$data['name'];
+
+        $included=explode(",",$data['questions']);
+        if($included[0]=="")
+            unset($included[0]);
+
+        $pdata['lectures']=$this->get_lectures();
+        foreach($pdata['lectures'] as &$item)
+        {
+            $stmt = $_dbh->prepare("SELECT id,question FROM questions WHERE lecture=:lecture");
+            $stmt->bindParam(":lecture", $item['number']);
+            $stmt->execute();
+            $item['questions']=$stmt->fetchAll();
+            foreach($included as $incitem)
+            {
+                foreach($item['questions'] as &$qitem)
+                {
+                    if($qitem['id']==$incitem)
+                        $qitem['included']=1;
+                }
+            }
+        }
+        return $pdata;
+    }
+
+    function set_ticket_data($data)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("update tickets
+                                    set questions=:questions
+                                    where id=:id");
+            $questions="";
+            foreach($data as $key => $value)
+            {
+                if(preg_match("/question/",$key))
+                {
+                    $questions=$questions.",".$value;
+                }
+            }
+            if($questions!="")
+                $questions=substr($questions,1,strlen($questions)-1);
+            $stmt->bindParam(":questions", $questions);
+            $stmt->bindParam(":id", $data['ticket']);
+            $stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+    }
+
 }
