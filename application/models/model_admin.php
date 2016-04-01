@@ -306,7 +306,7 @@ class Model_Admin extends Model
 feedback_messages fm, (SELECT login, uid FROM schools
 UNION
 SELECT login, uid FROM admins) as tmp
-WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id");
+WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id ORDER BY fm.id");
             $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
