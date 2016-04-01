@@ -22,16 +22,13 @@
                     </div>
                 <?php else: ?>
                     <?php foreach ($data['active_tickets'] as $item): ?>
-                        <a href="<? echo $baseURI . "/cpanel/feedback/" . $item['id']; ?>" class="list-group-item"><?php echo $item['title'] ?></a>
+                        <a href="<? echo $baseURI . "/admin/feedback/" . $item['id']; ?>" class="list-group-item"><?php echo $item['title'] ?></a>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
 
     </div>
-    <br>
-    <div class="text-right">
-        <a href="<? echo $baseURI; ?>/cpanel/create_ticket" class="btn btn-default btn-success">Створити тiкет</a>
-    </div>
+
     <br>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -48,7 +45,7 @@
                     </div>
                 <?php else: ?>
                     <?php foreach ($data['inactive_tickets'] as $item): ?>
-                        <a href="<? echo $baseURI . "/cpanel/feedback/" . $item['id']; ?>" class="list-group-item"><?php echo $item['title'] ?></a>
+                        <a href="<? echo $baseURI . "/admin/feedback/" . $item['id']; ?>" class="list-group-item"><?php echo $item['title'] ?></a>
                     <?php endforeach; ?>
                 <?php endif; ?>
         </div>

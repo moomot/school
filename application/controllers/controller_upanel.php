@@ -107,9 +107,9 @@ class Controller_UPanel extends Controller
         {
             $request_uri=$_SERVER['REQUEST_URI'];
             $routes = explode('/', $request_uri);
-            if (!empty($routes[3]))
+            if (!empty($routes[4]))
 			{
-                $data['ticket'] = $routes[3];
+                $data['ticket'] = $routes[4];
                 $this->model->get_questions_of_ticket($data);
                 $this->view->generate("users/test.php", $data);
             }
@@ -124,9 +124,10 @@ class Controller_UPanel extends Controller
         {
             $request_uri=$_SERVER['REQUEST_URI'];
             $routes = explode('/', $request_uri);
-            if (!empty($routes[3]))
+            var_dump($routes);
+            if (!empty($routes[4]))
 			{
-                $data['current_lecture'] = $routes[3];
+                $data['current_lecture'] = $routes[4];
                 $this->model->get_questions($data);
                 $this->view->generate("users/test.php", $data);
             }

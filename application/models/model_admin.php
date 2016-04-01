@@ -62,6 +62,23 @@ class Model_Admin extends Model
         return $data;
     }
 
+
+    function get_admin_by_id($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            $stmt = $_dbh->prepare("SELECT login FROM admins WHERE uid=:uid");
+            $stmt->bindParam(":uid", $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
     /**
      * Get site settings from "settings" table
      * @return array
@@ -315,6 +332,107 @@ class Model_Admin extends Model
 
             $result = $stmt->execute();
 
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_tickets($status)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $result = $_dbh->query("SELECT * FROM feedback WHERE status = $status")->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_ticket_options($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT * FROM feedback WHERE id=:id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_ticket($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT timestamp, message, login FROM feedback f,
+feedback_messages fm, (SELECT login, uid FROM schools
+UNION
+SELECT login, uid FROM admins) as tmp
+WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function send_ticket_message($data)
+    {
+        $uid = Session::get("uid");
+        try {
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            // Get timestamp
+            $date = new DateTime();
+            $timestamp = $date->getTimestamp();
+            $stmt = $_dbh->prepare("INSERT INTO feedback_messages (ticket_id, user_id, timestamp, message) VALUES (:ticket_id, :user_id, :timestamp, :message)");
+            $stmt->bindParam(":message", $data['message']);
+            $stmt->bindParam(":timestamp", $timestamp);
+            $stmt->bindParam(":user_id", $uid, PDO::PARAM_INT);
+            $stmt->bindParam(":ticket_id", $data['ticket_id'], PDO::PARAM_INT);
+            $result = $stmt->execute();
+
+
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function close_ticket($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("UPDATE feedback SET status = 0 WHERE id = :id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $result = $stmt->execute();
             $_dbh = null;
 
         } catch (PDOException $e) {

@@ -118,6 +118,7 @@ class Model_Upanel extends Model
             $stmt->bindParam(":id", $pdata['ticket']);
             $stmt->execute();
             $q=$stmt->fetchAll();
+
             $pdata['questions']=explode(",",$q[0]['questions']);
 
             //get variants and add to our questions

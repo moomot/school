@@ -97,3 +97,9 @@ a img {border:0;}
 .feedback-ticket {
     padding: 10px 0 !important;
 }
+.list-group-item-right {
+    text-align: right;
+}
+.ticket_status_msg {
+    display: none;
+}

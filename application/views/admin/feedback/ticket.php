@@ -39,7 +39,7 @@ extract($data);
                 <div class="alert alert-info"><? echo $data['message']; ?></div>
             </div>
             <div class="sendform">
-                <form action="<?= $baseURI;?>/cpanel/answer_ticket" class="answer_ticket" method="post" accept-charset="utf-8">
+                <form action="<?= $baseURI;?>/admin/answer_ticket" class="answer_ticket" method="post" accept-charset="utf-8">
                     <div class="form-group col-lg-12">
                         <label for="message">Повiдомлення</label>
                         <textarea id="message" class="form-control" rows="5" placeholder="Напишiть повiдомлення" name="message" required></textarea>
@@ -54,7 +54,7 @@ extract($data);
     </div>
 
     <div class="text-right">
-        <a href="<?= $baseURI; ?>/cpanel/close_feedback/<?= $opt['id']; ?>" class="btn btn-default btn-danger">Закрити звернення</a>
+        <a href="<?= $baseURI; ?>/admin/close_feedback/<?= $opt['id']; ?>" class="btn btn-default btn-danger">Закрити звернення</a>
     </div>
     <?php else: ?>
             <br>
