@@ -10,8 +10,8 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Пользователь</th>
         <th>Повiдомлення</th>
+        <th style="text-align:right">Дата</th>
     </tr>
     </thead>
     <tbody>
@@ -28,8 +28,8 @@
         foreach ($data as $item) {
             ?>
             <tr>
-                <td><a href="<? echo Url::$baseurl. "/admin/list/" . $item['login']; ?>"><? echo $item['login']; ?></a></td>
                 <td><? echo $item['message']; ?></td>
+                <td align="right"><?= date("Y-m-d H:i:s", $item['timestamp']); ?></td>
             </tr>
             <?
         }

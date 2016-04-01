@@ -95,7 +95,7 @@ class Controller_UPanel extends Controller
     {
         if($this->accessGranted()) {
             $data = $this->model->get_receivers();
-            $this->view->generate("messages/send.php");
+            $this->view->generate("messages/send.php", $data);
         }
         else
         {

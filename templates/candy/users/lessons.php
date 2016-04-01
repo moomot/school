@@ -11,8 +11,10 @@
     var data= <? echo json_encode($data); ?> ;
 </script>
 
-<div class="videos">
+<div class="well well-sm">
+    <div class="videos">
 
+    </div>
 </div>
 <hr>
 <div id="video_panel" class="panel panel-default">
