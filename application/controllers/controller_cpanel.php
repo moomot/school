@@ -270,17 +270,6 @@ class Controller_Cpanel extends Controller
         }
     }
 
-    function action_lections_settings()
-    {
-        if ($this->accessGranted()) {
-            $data = $this->model->get_users();
-
-            $this->view->generateCpTpl($this->defaultPage . "/lections_settings/index.php");
-        } else {
-            $this->redirect_to_main("/" . $this->defaultPage);
-        }
-    }
-
     /* Feedback */
     function action_feedback()
     {
@@ -368,6 +357,7 @@ class Controller_Cpanel extends Controller
         }
     }
     /************************/
+
 
     private function accessGranted()
     {

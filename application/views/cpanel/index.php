@@ -38,10 +38,6 @@ $prefix = $baseURI."/assets";
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Повiдомлення"
                ],
                [
-                   "url" => "/cpanel/lections_settings",
-                   "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Налаштування лекцiй"
-               ],
-               [
                    "url" => "/cpanel/feedback",
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Зворотнiй зв'язок"
                ]
