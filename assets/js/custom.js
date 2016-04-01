@@ -190,6 +190,8 @@ $(function () {
         });
     });
 });
+
+// MD5 Generator
 $(function () {
    var $md5_btn = $(".md5-generate");
     $md5_btn.click(function (e) {

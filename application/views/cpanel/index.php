@@ -5,7 +5,8 @@ $baseURI = Url::$baseurl;
 $settings = $application->getSettings();
 
 $login_status = Users::getSchoolLoginStatus();
-$login = Users::getUID();
+$uID = Users::getUID();
+$login = $application->get_login_by_id($uID);
 $prefix = $baseURI."/assets";
 ?>
 <!doctype html>
