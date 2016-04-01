@@ -124,7 +124,6 @@ class Controller_UPanel extends Controller
         {
             $request_uri=$_SERVER['REQUEST_URI'];
             $routes = explode('/', $request_uri);
-            var_dump($routes);
             if (!empty($routes[4]))
 			{
                 $data['current_lecture'] = $routes[4];

@@ -37,14 +37,18 @@ class Model_Upanel extends Model
     }
     function get_lectures()
     {
+        $uid = Session::get("uid");
         try
         {
-            $sql = "SELECT number, name FROM lectures ORDER BY number";
-
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
+            $stmt = $_dbh->prepare("SELECT available_lections FROM users WHERE uid=:uid");
+            $stmt->bindParam(":uid", $uid);
+            $stmt->execute();
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            $sql = "SELECT number, name FROM lectures WHERE number IN (".$data['available_lections'].") ORDER BY number";
             $query = $_dbh->query($sql);
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
         }

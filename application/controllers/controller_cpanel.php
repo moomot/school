@@ -356,6 +356,7 @@ class Controller_Cpanel extends Controller
             $this->redirect_to_main("/" . $this->defaultPage);
         }
     }
+
     /************************/
 
 
@@ -366,3 +367,4 @@ class Controller_Cpanel extends Controller
 
 
 }
+

@@ -182,21 +182,6 @@ Class Model_Cpanel extends Model {
         return $result;
     }
 
-    function get_users()
-    {
-        try {
-            $db = Database::getInstance();
-            $_dbh = $db->getConnection();
-            $_dbh->exec('SET NAMES utf8');
-            $stmt = $_dbh->query("SELECT login, lections_available FROM users");
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $_dbh = null;
-        } catch (PDOException $e) {
-            throw new CustomException("Query error");
-        }
-        return $result;
-    }
-
     function add_user($data) {
         if ($this->is_user_exists($data['login'])) {
             return false;
@@ -246,17 +231,17 @@ Class Model_Cpanel extends Model {
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
             // UPDATE USER
-            $stmt = $_dbh->prepare("UPDATE users SET `login`=:login, `address` = :address, `password` = :password, `firstname` = :firstname, `lastname` = :lastname, `status` = :status WHERE `uid` = :uid");
+            $stmt = $_dbh->prepare("UPDATE users SET `login`=:login, `address` = :address, `password` = :password, `firstname` = :firstname, `lastname` = :lastname, `status` = :status, `available_lections` = :available_lections WHERE `uid` = :uid");
 
-            $pass = md5($data['password']);
 
             $stmt->bindParam(":login", $data['login']);
             $stmt->bindParam(":address", $data['address']);
-            $stmt->bindParam(":password", $pass);
+            $stmt->bindParam(":password", $data['password']);
             $stmt->bindParam(":firstname", $data['firstname']);
             $stmt->bindParam(":lastname", $data['lastname']);
             $stmt->bindParam(":status", $data['status']);
             $stmt->bindParam(":uid", $data['uid']);
+            $stmt->bindParam(":available_lections", $data['available_lections']);
 
             $result = $stmt->execute();
 
