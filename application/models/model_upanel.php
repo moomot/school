@@ -125,6 +125,12 @@ class Model_Upanel extends Model
 
             $pdata['questions']=explode(",",$q[0]['questions']);
 
+            if($pdata['questions'][0]=="")
+            {
+                unset($pdata['questions'][0]);
+                return;
+            }
+
             //get variants and add to our questions
             foreach($pdata['questions'] as &$item)
             {
