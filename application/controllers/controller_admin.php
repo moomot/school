@@ -96,77 +96,6 @@ class Controller_Admin extends Controller
     }
 
 
-    function action_messages()
-    {
-        if ($this->accessGranted())
-            $this->view->generateAdminTpl($this->defaultPage . "/messages/index.php");
-        else
-            $this->redirect_to_main("/" . $this->defaultPage);
-    }
-
-    function action_send_message()
-    {
-        $data = $this->model->get_schools();
-        if ($this->accessGranted())
-            $this->view->generateAdminTpl($this->defaultPage . "/messages/send.php", $data);
-        else
-            $this->redirect_to_main("/" . $this->defaultPage);
-    }
-
-    function action_submit_send_message()
-    {
-        if ($this->accessGranted()) {
-            ob_clean();
-            ob_start();
-            if (isset($_POST)) {
-                $result = $this->model->send_message($_POST);
-                if ($result) {
-                    $data['message'] = "Повiдомлення успiшно вiдправлено!";
-                    include $this->prefix . $this->defaultPage . "/errors/info.php";
-                } else {
-                    $data['message'] = "Повiдомлення не вiдправлено!";
-                    include $this->prefix . $this->defaultPage . "/errors/critical.php";
-                }
-
-            } else {
-                $this->view->generateAdminTpl($this->defaultPage . "/messages/send.php");
-            }
-        } else {
-            $this->redirect_to_main("/" . $this->defaultPage);
-        }
-
-    }
-
-    /**
-     * Render input private messages
-     * Action calls by ajax.
-     */
-    function action_input_pm()
-    {
-        $data = $this->model->get_input_pm();
-        if (sizeof($data) == 0) {
-            $data['status'] = "Сообщений нет";
-        }
-        ob_clean();
-        ob_start();
-        include $this->prefix . $this->defaultPage . "/messages/messages.php";
-    }
-
-    /**
-     * Render output private messages
-     * Action calls by ajax.
-     */
-    function action_output_pm()
-    {
-        $data = $this->model->get_output_pm();
-        if (sizeof($data) == 0) {
-            $data['status'] = "Сообщений нет";
-        }
-        ob_clean();
-        ob_start();
-        include $this->prefix . $this->defaultPage . "/messages/messages.php";
-    }
-
     /**
      * Add school page
      */
@@ -584,8 +513,8 @@ class Controller_Admin extends Controller
                 $data['currentUserLogin'] = $this->model->get_admin_by_id(Session::get("uid"));
                 $this->view->generateAdminTpl($this->defaultPage . "/feedback/ticket.php", $data);
             } else {
-                $data['active_tickets'] = $this->model->get_tickets(1);
-                $data['inactive_tickets'] = $this->model->get_tickets(0);
+                $data['active_tickets'] = $this->model->get_feedback_tickets(1);
+                $data['inactive_tickets'] = $this->model->get_feedback_tickets(0);
                 $this->view->generateAdminTpl($this->defaultPage . "/feedback/index.php", $data);
             }
         } else {

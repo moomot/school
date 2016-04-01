@@ -96,7 +96,7 @@ Class Model_Cpanel extends Model {
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
-            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, admins WHERE user2_id = :user_id AND admins.uid = private_messages.user_id");
+            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, schools WHERE user2_id = :user_id AND schools.uid = user2_id");
             $stmt->bindParam(":user_id", $uid);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
