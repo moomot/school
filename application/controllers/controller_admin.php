@@ -559,6 +559,7 @@ class Controller_Admin extends Controller
                 $res=finfo_open(FILEINFO_MIME_TYPE);
                 if(finfo_file($res,$file['tmp_name'])=="video/mp4")
                     move_uploaded_file($file['tmp_name'], ".../uploads/videos/video".$routes[4]);
+                finfo_close($res);
             }
             $this->forward_index($routes[4]);
         }

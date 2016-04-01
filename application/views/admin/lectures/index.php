@@ -130,6 +130,7 @@
            class="btn btn-danger">
             Видалити лекцію
         </a>
+        <hr />
         <form action="admin/choose_video/<? echo "/$data[current_lecture]"; ?>" method="post" accept-charset="utf-8">
             <input name="video_file" type="file" />
             <input name="submit" type="submit" value="Завантажити відео" class="btn btn-success" />

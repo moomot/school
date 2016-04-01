@@ -93,7 +93,27 @@ class Controller_UPanel extends Controller
     function action_tickets()
     {
         if($this->accessGranted())
-                $this->view->generate("users/tickets.php");
+        {
+            $data=$this->model->get_tickets();
+            $this->view->generate("users/tickets.php",$data);
+        }
+        else
+            $this->redirect_to_main($this->defaultPage);
+    }
+
+    function action_choose_ticket()
+    {
+        if($this->accessGranted())
+        {
+            $request_uri=$_SERVER['REQUEST_URI'];
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3]))
+			{
+                $data['ticket'] = $routes[3];
+                $this->model->get_questions_of_ticket($data);
+                $this->view->generate("users/test.php", $data);
+            }
+        }
         else
             $this->redirect_to_main($this->defaultPage);
     }
@@ -104,9 +124,9 @@ class Controller_UPanel extends Controller
         {
             $request_uri=$_SERVER['REQUEST_URI'];
             $routes = explode('/', $request_uri);
-            if (!empty($routes[4]))
+            if (!empty($routes[3]))
 			{
-                $data['current_lecture'] = $routes[4];
+                $data['current_lecture'] = $routes[3];
                 $this->model->get_questions($data);
                 $this->view->generate("users/test.php", $data);
             }

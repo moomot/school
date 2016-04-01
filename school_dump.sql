@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2016 at 10:38 PM
+-- Generation Time: Apr 01, 2016 at 08:17 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.4
 
@@ -198,6 +198,27 @@ INSERT INTO `static_pages` (`id`, `title`, `content`, `date`, `status`, `comment
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tickets`
+--
+
+DROP TABLE IF EXISTS `tickets`;
+CREATE TABLE `tickets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `questions` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`id`, `name`, `questions`) VALUES
+(1, 'ticket 1', '5,7'),
+(2, 'ticket 2', '4,10');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `unical_users_id`
 --
 
@@ -237,7 +258,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `firstname`, `lastname`, `address`, `school_id`, `status`, `password`, `uid`) VALUES
-(1, 'user_login', 'user_firstname', 'user_lastname', 'user_address', 6, 1, 'effc1aec7db3759b5ca360d35ce9826b', 4);
+(1, 'user_login', 'user_firstname', 'user_lastname', 'user_address', 6, 1, 'effc1aec7db3759b5ca360d35ce9826b', 4),
+(2, 'roma', NULL, NULL, NULL, NULL, 1, 'c4ca4238a0b923820dcc509a6f75849b', 111);
 
 -- --------------------------------------------------------
 
@@ -318,6 +340,13 @@ ALTER TABLE `static_pages`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`name`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -370,10 +399,15 @@ ALTER TABLE `settings`
 ALTER TABLE `static_pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `variants`
 --

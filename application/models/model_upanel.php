@@ -83,4 +83,58 @@ class Model_Upanel extends Model
             throw new CustomException("Query error");
         }
     }
+
+    function get_tickets()
+    {
+        try
+        {
+            $sql = "SELECT id, name FROM tickets";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $query = $_dbh->query($sql);
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+
+        return $result;
+    }
+
+    function get_questions_of_ticket(&$pdata)
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            //get questions for ticket
+            $stmt = $_dbh->prepare("SELECT questions FROM tickets WHERE id=:id");
+            $stmt->bindParam(":id", $pdata['ticket']);
+            $stmt->execute();
+            $q=$stmt->fetchAll();
+            $pdata['questions']=explode(",",$q[0]['questions']);
+
+            //get variants and add to our questions
+            foreach($pdata['questions'] as &$item)
+            {
+                $sql="select id,question from questions where id=$item";
+                $query=$_dbh->query($sql);
+                $item=$query->fetch(PDO::FETCH_ASSOC);
+
+                $sql = "SELECT id,answer,correct FROM variants WHERE question=$item[id]";
+                $query = $_dbh->query($sql);
+                $item['variants'] = $query->fetchAll(PDO::FETCH_ASSOC);
+            }
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+    }
 }

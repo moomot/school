@@ -15,31 +15,18 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Номер бiлету</th>
+            <th>Назва бiлету</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>Бiлет 1. Текст</td>
-        </tr>
-        <tr>
-            <td>Бiлет 2. Текст</td>
-        </tr>
-        <tr>
-            <td>Бiлет 3. Текст</td>
-        </tr>
-        <tr>
-            <td>Бiлет 4. Текст</td>
-        </tr>
-        <tr>
-            <td>Бiлет 5. Текст</td>
-        </tr>
-        <tr>
-            <td>Бiлет 6. Текст</td>
-        </tr>
-        <tr>
-            <td>Бiлет 7. Текст</td>
-        </tr>
+        <tbody >
+            <? foreach($data as $item) { ?>
+            <tr>
+                <td>
+                    <a href="choose_ticket/<? echo $item['id'] ?>"><? echo $item['name'] ?></a>
+                </td>
+            </tr>
+            <? } ?>
+        </ ?>
         </tbody>
     </table>
 </div>
