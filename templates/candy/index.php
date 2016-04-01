@@ -44,8 +44,8 @@
                 ?>
             </div>
         </div>
-        <div class="col-md-9">
-            <div class="well well-sm">
+        <div class="col-md-9 left_container">
+            <div class="right-panel">
                 <?php include $this->getView(); ?>
             </div>
         </div>

@@ -23,8 +23,9 @@
                     <td><input class="form-control" type="text" name="login" value="<? echo $data['login']; ?>"></td>
                 </tr>
                 <tr>
-                    <td>Пароль</td>
-                    <td><input class="form-control" type="password" name="password" value=""></td>
+                    <td>Пароль(md5)</td>
+                    <td><input class="form-control" type="text" name="password" value="<? echo $data['password']; ?>">
+                        <a href="javascript://" class="btn btn-default md5-generate">MD5 Generate</a></td>
                 </tr>
                 <tr>
                     <td>Адреса</td>
@@ -41,6 +42,10 @@
                 <tr>
                     <td>Статус</td>
                     <td><input class="form-control" type="text" name="status" value="<? echo $data['status']; ?>"></td>
+                </tr>
+                <tr>
+                    <td>Доступнi лекцiї<br>(через кому)</td>
+                    <td><input class="form-control" type="text" name="available_lections" value="<? echo $data['available_lections']; ?>"></td>
                 </tr>
                 </tbody>
             </table>

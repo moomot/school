@@ -9,7 +9,16 @@
 class Controller_UPanel extends Controller
 {
     public $defaultPage = "upanel";
+    public $prefix;
 
+    /**
+     * Controller_Admin constructor.
+     * @param string $prefix
+     */
+    public function __construct() {
+        $this->view = new View();
+        $this->prefix = PATH_SITE . "/templates/" . Application::getInstance()->getTemplateName() . "/";
+    }
     function action_login()
     {
         if( $this->accessGranted() ) {
@@ -77,17 +86,74 @@ class Controller_UPanel extends Controller
     function action_messages()
     {
         if($this->accessGranted())
-            $this->view->generate("users/messages.php");
+            $this->view->generate("messages/index.php");
         else
-            $this->view->generate("users/access_denied.php");
+            $this->view->generate("messages/access_denied.php");
     }
 
     function action_send_message()
     {
-        if($this->accessGranted())
-            $this->view->generate("users/send.php");
+        if($this->accessGranted()) {
+            $data = $this->model->get_receivers();
+            $this->view->generate("messages/send.php");
+        }
         else
+        {
             $this->redirect_to_main($this->defaultPage);
+        }
+    }
+
+    /**
+     * Render input private messages
+     * Action calls by ajax.
+     */
+    function action_input_pm()
+    {
+        $data = $this->model->get_input_pm();
+        if (sizeof($data) == 0) {
+            $data['status'] = "Сообщений нет";
+        }
+        ob_clean();
+        ob_start();
+        include $this->prefix . "/messages/messages.php";
+    }
+
+    /**
+     * Render output private messages
+     * Action calls by ajax.
+     */
+    function action_output_pm()
+    {
+        $data = $this->model->get_output_pm();
+        if (sizeof($data) == 0) {
+            $data['status'] = "Сообщений нет";
+        }
+        ob_clean();
+        ob_start();
+        include $this->prefix . "/messages/messages.php";
+    }
+
+    function action_submit_send_message()
+    {
+        if ($this->accessGranted()) {
+            ob_clean();
+            ob_start();
+            if (isset($_POST)) {
+                $result = $this->model->send_message($_POST);
+                if ($result) {
+                    $data['message'] = "Повiдомлення успiшно вiдправлено!";
+                    include $this->prefix . "/errors/info.php";
+                } else {
+                    $data['message'] = "Повiдомлення не вiдправлено!";
+                    include $this->prefix . $this->defaultPage . "/errors/critical.php";
+                }
+
+            } else {
+                $this->view->generate("messages/send.php");
+            }
+        } else {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
     }
 
     function action_tickets()
@@ -107,9 +173,9 @@ class Controller_UPanel extends Controller
         {
             $request_uri=$_SERVER['REQUEST_URI'];
             $routes = explode('/', $request_uri);
-            if (!empty($routes[3]))
+            if (!empty($routes[4]))
 			{
-                $data['ticket'] = $routes[3];
+                $data['ticket'] = $routes[4];
                 $this->model->get_questions_of_ticket($data);
                 $this->view->generate("users/test.php", $data);
             }
@@ -124,9 +190,9 @@ class Controller_UPanel extends Controller
         {
             $request_uri=$_SERVER['REQUEST_URI'];
             $routes = explode('/', $request_uri);
-            if (!empty($routes[3]))
+            if (!empty($routes[4]))
 			{
-                $data['current_lecture'] = $routes[3];
+                $data['current_lecture'] = $routes[4];
                 $this->model->get_questions($data);
                 $this->view->generate("users/test.php", $data);
             }

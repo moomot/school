@@ -37,14 +37,18 @@ class Model_Upanel extends Model
     }
     function get_lectures()
     {
+        $uid = Session::get("uid");
         try
         {
-            $sql = "SELECT number, name FROM lectures ORDER BY number";
-
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
+            $stmt = $_dbh->prepare("SELECT available_lections FROM users WHERE uid=:uid");
+            $stmt->bindParam(":uid", $uid);
+            $stmt->execute();
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            $sql = "SELECT number, name FROM lectures WHERE number IN (".$data['available_lections'].") ORDER BY number";
             $query = $_dbh->query($sql);
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -118,6 +122,7 @@ class Model_Upanel extends Model
             $stmt->bindParam(":id", $pdata['ticket']);
             $stmt->execute();
             $q=$stmt->fetchAll();
+
             $pdata['questions']=explode(",",$q[0]['questions']);
 
             if($pdata['questions'][0]=="")
@@ -143,4 +148,61 @@ class Model_Upanel extends Model
             throw new CustomException("Query error");
         }
     }
+    /* Messages */
+    function get_receivers()
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            $sql = "SELECT school_id FROM users WHERE uid = :uid";
+            $stmt = $_dbh->prepare($sql);
+            $stmt->bindParam(":uid", Session::get("uid"));
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC)['school_id'];
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_output_pm() {
+        $uid = Session::get("uid");
+        try {
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+
+            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, users WHERE user2_id = :user_id");
+            $stmt->bindParam(":user_id", $uid);
+
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function get_input_pm() {
+        $uid = Session::get("uid");
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+            $stmt = $_dbh->prepare("SELECT message, login FROM private_messages, schools WHERE user2_id = :user_id");
+            $stmt->bindParam(":user_id", $uid);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+    /**********************/
 }

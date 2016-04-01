@@ -50,6 +50,10 @@ $prefix = $baseURI."/assets";
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Статичнi сторiнки"
                ],
                [
+               "url" => "/admin/feedback",
+               "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Тiкети"
+               ],
+               [
                    "url" => "/admin/settings",
                    "content" => "<span class=\"glyphicon glyphicon-wrench\"></span> Налаштування"
                ]
@@ -57,8 +61,8 @@ $prefix = $baseURI."/assets";
            ?>
        </div>
    </div>
-    <div class="col-md-9">
-        <div class="well well-sm">
+    <div class="col-md-9 left_container">
+        <div class="right-panel">
             <?php include $this->getPrivateView(); ?>
         </div>
     </div>

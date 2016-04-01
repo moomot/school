@@ -37,6 +37,10 @@
                 <td>Статус</td>
                 <td><? echo $data['status']; ?></td>
             </tr>
+            <tr>
+                <td>Доступнi лекцiї</td>
+                <td><? echo $data['available_lections']; ?></td>
+            </tr>
             </tbody>
         </table>
         <div class="text-right">

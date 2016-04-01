@@ -3,7 +3,7 @@ $config = Application::getConfig();
 $baseURI = Url::$baseurl;
 
 $login_status = Users::getSchoolLoginStatus();
-$login = Users::getUID();
+$uID = Users::getUID();
 $prefix = $baseURI."/assets";
 ob_clean();
 ?>

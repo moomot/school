@@ -10,7 +10,7 @@
 <div class="navbar navbar-default navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-left">
-            <div class="hello">Панель администратора</div>
+            <div class="hello">Здравствуйте, <?=$login?></div>
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav">

@@ -15,7 +15,7 @@ $settings = $application->getSettings();
 $baseURI = Url::$baseurl;
 
 $login_status = Users::getUserLoginStatus();
-$uid = Users::getUID();
+$uID = Users::getUID();
 
 $prefix = $baseURI . "/templates/" . $template;
 

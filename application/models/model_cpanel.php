@@ -35,6 +35,23 @@ Class Model_Cpanel extends Model {
         return $data;
     }
 
+    function get_login_by_id ($id) {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT login FROM schools WHERE uid=:id");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
     function get_students_list()
     {
         try {
@@ -165,21 +182,6 @@ Class Model_Cpanel extends Model {
         return $result;
     }
 
-    function get_users()
-    {
-        try {
-            $db = Database::getInstance();
-            $_dbh = $db->getConnection();
-            $_dbh->exec('SET NAMES utf8');
-            $stmt = $_dbh->query("SELECT login, lections_available FROM users");
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $_dbh = null;
-        } catch (PDOException $e) {
-            throw new CustomException("Query error");
-        }
-        return $result;
-    }
-
     function add_user($data) {
         if ($this->is_user_exists($data['login'])) {
             return false;
@@ -229,17 +231,17 @@ Class Model_Cpanel extends Model {
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
             // UPDATE USER
-            $stmt = $_dbh->prepare("UPDATE users SET `login`=:login, `address` = :address, `password` = :password, `firstname` = :firstname, `lastname` = :lastname, `status` = :status WHERE `uid` = :uid");
+            $stmt = $_dbh->prepare("UPDATE users SET `login`=:login, `address` = :address, `password` = :password, `firstname` = :firstname, `lastname` = :lastname, `status` = :status, `available_lections` = :available_lections WHERE `uid` = :uid");
 
-            $pass = md5($data['password']);
 
             $stmt->bindParam(":login", $data['login']);
             $stmt->bindParam(":address", $data['address']);
-            $stmt->bindParam(":password", $pass);
+            $stmt->bindParam(":password", $data['password']);
             $stmt->bindParam(":firstname", $data['firstname']);
             $stmt->bindParam(":lastname", $data['lastname']);
             $stmt->bindParam(":status", $data['status']);
             $stmt->bindParam(":uid", $data['uid']);
+            $stmt->bindParam(":available_lections", $data['available_lections']);
 
             $result = $stmt->execute();
 
@@ -313,7 +315,7 @@ Class Model_Cpanel extends Model {
                 $stmt = $_dbh->prepare("INSERT INTO feedback_messages (ticket_id, user_id, timestamp, message) VALUES (:ticket_id, :user_id, :timestamp, :message)");
                 $stmt->bindParam(":message", $data['message']);
                 $stmt->bindParam(":timestamp", $timestamp);
-                $stmt->bindParam(":user_id", $uid);
+                $stmt->bindParam(":user_id", $uid, PDO::PARAM_INT);
                 $stmt->bindParam(":ticket_id", $feedback_id);
                 $result = $stmt->execute();
             }
@@ -349,7 +351,7 @@ Class Model_Cpanel extends Model {
             $_dbh->exec('SET NAMES utf8');
 
             $stmt = $_dbh->prepare("SELECT * FROM feedback WHERE id=:id");
-            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $_dbh = null;
@@ -366,11 +368,61 @@ Class Model_Cpanel extends Model {
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
 
-            $stmt = $_dbh->prepare("SELECT fm.id, fm.user_id, fm.timestamp, fm.message FROM feedback f, feedback_messages fm WHERE f.id=:id AND f.id = fm.ticket_id ");
-            $stmt->bindParam(":id", $id);
+            $stmt = $_dbh->prepare("SELECT timestamp, message, login FROM feedback f,
+feedback_messages fm, (SELECT login, uid FROM schools
+UNION
+SELECT login, uid FROM admins) as tmp
+WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function send_ticket_message($data)
+    {
+        $uid = Session::get("uid");
+        try {
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            // Get timestamp
+            $date = new DateTime();
+            $timestamp = $date->getTimestamp();
+            $stmt = $_dbh->prepare("INSERT INTO feedback_messages (ticket_id, user_id, timestamp, message) VALUES (:ticket_id, :user_id, :timestamp, :message)");
+            $stmt->bindParam(":message", $data['message']);
+            $stmt->bindParam(":timestamp", $timestamp);
+            $stmt->bindParam(":user_id", $uid, PDO::PARAM_INT);
+            $stmt->bindParam(":ticket_id", $data['ticket_id'], PDO::PARAM_INT);
+            $result = $stmt->execute();
+
+
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function close_ticket($id)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("UPDATE feedback SET status = 0 WHERE id = :id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $result = $stmt->execute();
+            $_dbh = null;
+
         } catch (PDOException $e) {
             throw new CustomException("Query error");
         }

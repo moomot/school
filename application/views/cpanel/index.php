@@ -5,7 +5,8 @@ $baseURI = Url::$baseurl;
 $settings = $application->getSettings();
 
 $login_status = Users::getSchoolLoginStatus();
-$login = Users::getUID();
+$uID = Users::getUID();
+$login = $application->get_login_by_id($uID);
 $prefix = $baseURI."/assets";
 ?>
 <!doctype html>
@@ -36,10 +37,6 @@ $prefix = $baseURI."/assets";
                [
                    "url" => "/cpanel/messages",
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Повiдомлення"
-               ],
-               [
-                   "url" => "/cpanel/lections_settings",
-                   "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Налаштування лекцiй"
                ],
                [
                    "url" => "/cpanel/feedback",
