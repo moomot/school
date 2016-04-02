@@ -66,10 +66,10 @@ class Controller_UPanel extends Controller
         if($this->accessGranted())
         {
             $data=$this->model->get_lectures();
-            $this->view->generate("users/upanel.php",$data);
+            $this->view->generate("upanel/dashboard.php",$data);
         }
         else
-            $this->view->generate("users/login_form.php");
+            $this->view->generate("auth/login_form.php");
     }
 
     function action_lessons()
@@ -77,10 +77,10 @@ class Controller_UPanel extends Controller
         if($this->accessGranted())
         {
             $data=$this->model->get_lectures();
-            $this->view->generate("users/lessons.php",$data);
+            $this->view->generate("lessons/lessons.php",$data);
         }
         else
-            $this->view->generate("users/access_denied.php");
+            $this->view->generate("auth/access_denied.php");
     }
 
     function action_messages()
@@ -161,7 +161,7 @@ class Controller_UPanel extends Controller
         if($this->accessGranted())
         {
             $data=$this->model->get_tickets();
-            $this->view->generate("users/tickets.php",$data);
+            $this->view->generate("tickets/tickets.php",$data);
         }
         else
             $this->redirect_to_main($this->defaultPage);
@@ -177,7 +177,7 @@ class Controller_UPanel extends Controller
 			{
                 $data['ticket'] = $routes[4];
                 $this->model->get_questions_of_ticket($data);
-                $this->view->generate("users/test.php", $data);
+                $this->view->generate("test/test.php", $data);
             }
         }
         else
@@ -194,7 +194,7 @@ class Controller_UPanel extends Controller
 			{
                 $data['current_lecture'] = $routes[4];
                 $this->model->get_questions($data);
-                $this->view->generate("users/test.php", $data);
+                $this->view->generate("test/test.php", $data);
             }
         }
         else
