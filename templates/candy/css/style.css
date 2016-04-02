@@ -88,6 +88,15 @@ a img {border:0;}
 .pm_buttons {
     margin: 5px;
 }
-.pm_content table {
+.pm_content table{
     margin: 0 !important;
+}
+.notopmargin {
+    margin-top: 0;
+}
+.ticket_title {
+    padding-top: 7px;
+}
+.result_padding {
+    padding: 15px 0;
 }

@@ -8,6 +8,17 @@
 ?>
 <script type="text/javascript">
     var data= <? echo json_encode($data); ?> ;
+    var data_lection;
+    var ticket_type;
+    if(typeof data['current_lecture'] != 'undefined') {
+        data_lection = data['current_lecture'];
+        ticket_type = 0;
+    }
+    else if(typeof data['ticket'] != 'undefined') {
+        data_lection = data['ticket'];
+        ticket_type = 1;
+    }
+
     data=data['questions'];
 
     var current_page = "test";

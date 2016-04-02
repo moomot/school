@@ -193,9 +193,26 @@ class Controller_UPanel extends Controller
             if (!empty($routes[4]))
 			{
                 $data['current_lecture'] = $routes[4];
-                $this->model->get_questions($data);
-                $this->view->generate("test/test.php", $data);
+                $tmp_data = $this->model->isTestAvaliableForThisUser($routes[4]);
+                if($tmp_data['status']) {
+                    $this->view->generate("test/result.php", $tmp_data['data']);
+                } else {
+                    $this->model->get_questions($data);
+                    $this->view->generate("test/test.php", $data);
+                }
             }
+        }
+        else
+            $this->redirect_to_main($this->defaultPage);
+    }
+
+    function action_add_to_ustat()
+    {
+        if($this->accessGranted())
+        {
+            ob_start();
+            ob_clean();
+            $this->model->add_to_ustat();
         }
         else
             $this->redirect_to_main($this->defaultPage);

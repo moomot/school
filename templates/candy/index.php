@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/slick.css"/>
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/slick-theme.css"/>
-
+    <script type="text/javascript">
+        var baseURI = "<? echo $baseURI; ?>";
+    </script>
     <!-- Script loading -->
     <script src="<? echo $prefix; ?>/js/jquery-1.11.1.min.js"></script>
 </head>

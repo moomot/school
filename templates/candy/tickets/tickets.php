@@ -22,7 +22,10 @@
             <? foreach($data as $item) { ?>
             <tr>
                 <td>
-                    <a href="choose_ticket/<? echo $item['id'] ?>"><? echo $item['name'] ?></a>
+                    <div class="row">
+                        <div class="col-lg-8 text-left ticket_title"><? echo $item['name'] ?></div>
+                        <div class="col-lg-4 text-right"><a href="choose_ticket/<? echo $item['id'] ?>" class="btn btn-default btn-success">Пройти тест</a></div>
+                    </div>
                 </td>
             </tr>
             <? } ?>
