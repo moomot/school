@@ -103,3 +103,6 @@ a img {border:0;}
 .ticket_status_msg {
     display: none;
 }
+.padding-lect-panel {
+    padding-left: 15px;
+}

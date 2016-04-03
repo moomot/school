@@ -117,11 +117,12 @@
             ?>
         </tbody>
     </table>
-    <div class="text-right">
+        <hr>
+    <div class="text-left padding-lect-panel">
         <a href="<? echo $baseURI; ?>/admin/add_question<? echo "/$data[current_lecture]"; ?>"
            class="btn btn-success">
             Додати питання
-        </a>
+        </a> <br> <br>
         <a href="<? echo $baseURI; ?>/admin/edit_lecture<? echo "/$data[current_lecture]"; ?>"
            class="btn btn-primary">
             Змінити лекцію
@@ -130,17 +131,10 @@
            class="btn btn-danger">
             Видалити лекцію
         </a>
-        <hr />
-        <form action="admin/choose_video/<? echo "/$data[current_lecture]"; ?>" method="post" accept-charset="utf-8">
-            <input name="video_file" type="file" />
-            <input name="submit" type="submit" value="Завантажити відео" class="btn btn-success" />
-        </form>
+        <a href="<? echo $baseURI; ?>/admin/add_lecture" class="btn btn-success">Додати лекцію</a>
     </div>
+        <hr>
     <? } ?>
     <? } ?>
     <? } ?>
-</div>
-<div class="text-right">
-
-    <a href="<? echo $baseURI; ?>/admin/add_lecture" class="btn btn-success">Додати лекцію</a>
 </div>
