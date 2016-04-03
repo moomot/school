@@ -307,5 +307,36 @@ class Model_Upanel extends Model
         }
         return $data;
     }
+
+    function get_stats()
+    {
+        $uid = Session::get("uid");
+        try {
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            // INSERT PM
+            $stmt = $_dbh->prepare("SELECT result, timestamp, right_tests, wrong_tests, test_type, test_id FROM ustat WHERE user_id = :user_id");
+            $stmt->bindParam(":user_id", $uid);
+
+            $result = $stmt->execute();
+            $data['status'] = $result;
+
+            if($stmt->rowCount() == 0)
+            {
+                $data['status'] = false;
+            }
+            else {
+                $data['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $data;
+    }
     /**********************/
 }

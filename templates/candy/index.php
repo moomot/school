@@ -39,8 +39,8 @@
                         "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Бiлети"
                     ],
                     [
-                        "url" => "/upanel/schedule",
-                        "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Розклад занять"
+                        "url" => "/upanel/stat",
+                        "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Статистика"
                     ]
                 )->render("nav nav-pills nav-stacked");
                 ?>

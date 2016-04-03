@@ -217,6 +217,17 @@ class Controller_UPanel extends Controller
         else
             $this->redirect_to_main($this->defaultPage);
     }
+
+    function action_stat()
+    {
+        if($this->accessGranted())
+        {
+            $data = $this->model->get_stats();
+            $this->view->generate("stat/index.php", $data['data']);
+        }
+        else
+            $this->redirect_to_main($this->defaultPage);
+    }
 	
     private function accessGranted()
     {
