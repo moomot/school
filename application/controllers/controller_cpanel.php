@@ -30,6 +30,7 @@ class Controller_Cpanel extends Controller
     function action_login()
     {
         if( $this->accessGranted() ) {
+            if( !empty(Session::get("uid")) ) Session::destroy();
             $this->redirect_to_main("/".$this->defaultPage);
         }
         else
@@ -358,6 +359,17 @@ class Controller_Cpanel extends Controller
     }
 
     /************************/
+
+    function action_stat()
+    {
+        if($this->accessGranted())
+        {
+            $data = $this->model->get_stats();
+            $this->view->generateCpTpl($this->defaultPage . "/stat/index.php", $data);
+        }
+        else
+            $this->redirect_to_main("/" . $this->defaultPage);
+    }
 
 
     private function accessGranted()

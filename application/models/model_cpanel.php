@@ -58,8 +58,8 @@ Class Model_Cpanel extends Model {
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
             $_dbh->exec('SET NAMES utf8');
-
-            $stmt = $_dbh->query("SELECT id, login, firstname, lastname, address FROM users");
+            $school_id = Session::get("uid");
+            $stmt = $_dbh->query("SELECT id, login, firstname, lastname, address FROM users WHERE school_id = $school_id");
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             $_dbh = null;
@@ -427,6 +427,37 @@ WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id ORDER BY fm.id
             throw new CustomException("Query error");
         }
         return $result;
+    }
+
+    function get_stats()
+    {
+        $uid = Session::get("uid");
+        try {
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+
+            // INSERT PM
+            $stmt = $_dbh->prepare("SELECT result, timestamp, right_tests, wrong_tests, test_type, test_id, login FROM ustat, users WHERE ustat.user_id = users.uid AND users.school_id = :school_id");
+            $stmt->bindParam(":school_id", $uid);
+            $result = $stmt->execute();
+            $data['status'] = $result;
+
+            if($stmt->rowCount() == 0)
+            {
+                $data['status'] = false;
+            }
+            else {
+                $data['data'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $data;
     }
     /* *************************** */
 

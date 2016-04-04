@@ -31,10 +31,12 @@
             <? } ?>
         </tbody>
     </table>
+    <div class="panel-body">
     <form action="<? echo $baseURI; ?>/admin/add_ticket" method="post" accept-charset="utf-8">
         <input type="text" class="form-control" required name="name" placeholder="Назва" />
         <input type="submit" class="btn btn-success btn-block" name="save" value="Додати білет &rarr;" />
     </form>
+        </div>
     <? } else { ?>
     <div class="panel-heading">Список питань</div>
     <form action="<? echo $baseURI; ?>/admin/set_ticket_data" method="post" accept-charset="utf-8">

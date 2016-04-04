@@ -40,6 +40,8 @@ class Controller_News extends Controller
                 $data['message'] = "Новина не знайдена";
                 $this->view->generate($this->defaultPage . "/errors/critical.php", $data);
             }
+        } else {
+            $this->redirect_to_main("/news");
         }
     }
 }

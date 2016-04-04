@@ -32,6 +32,7 @@ class Controller_Admin extends Controller
     function action_login()
     {
         if ($this->accessGranted()) {
+            if( !empty(Session::get("uid")) ) Session::destroy();
             $this->redirect_to_main("/" . $this->defaultPage);
         } else {
             if (isset($_POST['login']) && isset($_POST['password'])) {

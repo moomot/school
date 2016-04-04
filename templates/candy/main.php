@@ -2080,7 +2080,7 @@ $prefix .= "/main_landing";
 
         <div class="block block-button is-button" id="block-new56">
 
-            <a href="<? echo $baseURI; ?>/static/histories">Наші історії</a>
+            <a href="<? echo $baseURI; ?>/news">Наші історії</a>
 
 
         </div>
@@ -2127,7 +2127,7 @@ $prefix .= "/main_landing";
 
 
         <div class="block block-button is-button" id="block-new57">
-            <a href="<? echo $baseURI; ?>/static/about">Про нас</a>
+            <a href="<? echo $baseURI; ?>/static/pro_nas">Про нас</a>
 
 
         </div>

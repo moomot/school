@@ -11,7 +11,7 @@ class Model_News extends Model
     function get_news()
     {
         try {
-            $sql = "SELECT id, title, url, content, timestamp, status, content_short FROM news";
+            $sql = "SELECT id, title, url, content, timestamp, status, content_short FROM news WHERE status = 1";
 
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
@@ -29,7 +29,7 @@ class Model_News extends Model
     function get_news_item($url)
     {
         try {
-            $sql = "SELECT * FROM news WHERE url = :url";
+            $sql = "SELECT * FROM news WHERE url = :url AND status = 1";
 
             $db = Database::getInstance();
             $_dbh = $db->getConnection();

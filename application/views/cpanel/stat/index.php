@@ -13,7 +13,7 @@
         <div class="panel-heading">Статистика</div>
 
             <?
-            if(empty($data['data'])) {
+            if( empty($data['data']) ) {
                 ?>
                 <div class="panel-body">
                     <div class="alert alert-info">Нема результатiв</div>
@@ -25,6 +25,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>Логин</th>
                         <th>Тип</th>
                         <th>Результат</th>
                         <th>+</th>
@@ -36,6 +37,7 @@
                     <? $i = 1; foreach ($data['data'] as $item) {?>
                         <tr>
                             <td><?= $i++; ?></td>
+                            <td><?= $item['login']; ?></td>
                             <td><? echo $item['test_type'] == 1 ? "Билет" . " #" . $item['test_id'] : "ЛЕКЦИЯ" . " #" . $item['test_id']; ?></td>
                             <td><?= $item['result']; ?>%</td>
                             <td><?= $item['right_tests']; ?></td>

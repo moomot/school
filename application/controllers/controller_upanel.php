@@ -8,7 +8,7 @@
  */
 class Controller_UPanel extends Controller
 {
-    public $defaultPage = "/upanel";
+    public $defaultPage = "upanel";
     public $prefix;
 
     /**
@@ -22,7 +22,8 @@ class Controller_UPanel extends Controller
     function action_login()
     {
         if( $this->accessGranted() ) {
-            $this->redirect_to_main("/".$this->defaultPage);
+            if( !empty(Session::get("uid")) ) Session::destroy();
+            $this->redirect_to_main($this->defaultPage);
         }
         else
         {
@@ -223,7 +224,7 @@ class Controller_UPanel extends Controller
         if($this->accessGranted())
         {
             $data = $this->model->get_stats();
-            $this->view->generate("stat/index.php", $data['data']);
+            $this->view->generate("stat/index.php", $data);
         }
         else
             $this->view->generate("auth/access_denied.php");
