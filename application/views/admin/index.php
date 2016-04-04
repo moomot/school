@@ -33,9 +33,13 @@ $prefix = $baseURI."/assets";
                    "url" => "/admin/list",
                    "content" => "<span class=\"glyphicon glyphicon-list\"></span> Список шкiл"
                ],
-                [
+               [
                    "url" => "/admin/lectures",
                    "content" => "<span class=\"glyphicon glyphicon-list\"></span> Редактор лекцій"
+               ],
+               [
+                   "url" => "/admin/lectures_video",
+                   "content" => "<span class=\"glyphicon glyphicon-list\"></span> Управлiння вiдео"
                ],
                [
                    "url" => "/admin/tickets",
@@ -44,6 +48,10 @@ $prefix = $baseURI."/assets";
                [
                    "url" => "/admin/pages",
                    "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Статичнi сторiнки"
+               ],
+               [
+                   "url" => "/admin/news",
+                   "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Управлiння новинами"
                ],
                [
                "url" => "/admin/feedback",

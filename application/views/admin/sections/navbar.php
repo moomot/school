@@ -15,7 +15,7 @@
         <div class="navbar-right">
             <ul class="nav navbar-nav">
                 <li><a href="<? echo $baseURI; ?>">Головна</a></li>
-                <li><a href="<? echo $baseURI; ?>/static/about">Про проект</a></li>
+                <li><a href="<? echo $baseURI; ?>/static/pro_nas">Про проект</a></li>
                 <li class="disabled"><a href="<? echo $baseURI; ?>">Форум</a></li>
                 <li class="disabled"><a href="<? echo $baseURI; ?>/static/zaconodavstvo">Законодавство</a></li>
                 <?php if($login_status == "access_granted"): ?>

@@ -1,42 +1,50 @@
-﻿$(function () {
-    //video ui
-
+﻿$(document).ready(function () {
     var videos = $(".videos");
     if (typeof data != 'undefined') {
         for (var i = 0; i < data.length; i++) {
-            videos.append("<div data-videourl=video" + data[i]['number'] + ">"
-                + data[i]['name'] + "</div>");
+            videos.append("<div><img src=\"http://img.youtube.com/vi/"+data[i]['video_id']+"/mqdefault.jpg\" width='185' height='190'></div>");
         }
     }
-
     var panel = $("#video_panel");
+
     videos.find("div").click(function () {
-        var url = $(this).data('videourl');
-        panel.find(".panel-heading").text($(this).text());
-        panel.find("source").attr("src", "uploads/videos/" + url + ".mp4");
-        for (var i = 0; i < data.length; i++) {
-            if (data[i]['name'] == $(this).text()) {
-                $("#ticket_ref").attr("href",
-                    "test/" + data[i]['number']);
-                break;
+        var number_item_clicked = $(this).index();
+        panel.find(".panel-heading").text(data[number_item_clicked]['name']);
+        $("#ticket_ref").attr("href", "test/" + data[number_item_clicked]['number']);
+
+        $("#player").replaceWith('<iframe id="player" type="text/html" width="640" height="390"\
+        src="http://www.youtube.com/embed/'+data[number_item_clicked]['video_id']+'?enablejsapi=1&origin=http://example.com"\
+        frameborder="0"></iframe>');
+        var tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        var player = new YT.Player('player', {
+            videoId: data[number_item_clicked]['video_id'],
+            events: {
+                //'onReady': onPlayerReady
             }
+        });
+
+        // 4. The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            event.target.playVideo();
         }
     });
 
-
-    $('.videos').slick({
+    videos.slick({
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 3
     });
+    videos.find("div:first-child").click();
 
-    //end video ui
-
-    //imitate click on video
-    $(document).ready(function () {
-        $(".videos").find("div:first-child").click();
-    });
-
+})
+$(function () {
     if (typeof current_page != 'undefined' && current_page == "test") {
         //ticket ui
         var correct_all = 0;

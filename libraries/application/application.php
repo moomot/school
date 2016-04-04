@@ -153,4 +153,22 @@ class Application
         }
         return $result;
     }
+
+    function get_ulogin_by_id ($id) {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT login FROM users WHERE uid=:id");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC)['login'];
+            if($stmt->rowCount() == 0) return "Гость";
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
 }

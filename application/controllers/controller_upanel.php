@@ -8,7 +8,7 @@
  */
 class Controller_UPanel extends Controller
 {
-    public $defaultPage = "upanel";
+    public $defaultPage = "/upanel";
     public $prefix;
 
     /**
@@ -88,7 +88,7 @@ class Controller_UPanel extends Controller
         if($this->accessGranted())
             $this->view->generate("messages/index.php");
         else
-            $this->view->generate("messages/access_denied.php");
+            $this->view->generate("auth/access_denied.php");
     }
 
     function action_send_message()
@@ -164,7 +164,7 @@ class Controller_UPanel extends Controller
             $this->view->generate("tickets/tickets.php",$data);
         }
         else
-            $this->redirect_to_main($this->defaultPage);
+            $this->view->generate("auth/access_denied.php");
     }
 
     function action_choose_ticket()
@@ -203,7 +203,7 @@ class Controller_UPanel extends Controller
             }
         }
         else
-            $this->redirect_to_main($this->defaultPage);
+            $this->view->generate("auth/access_denied.php");
     }
 
     function action_add_to_ustat()
@@ -226,7 +226,7 @@ class Controller_UPanel extends Controller
             $this->view->generate("stat/index.php", $data['data']);
         }
         else
-            $this->redirect_to_main($this->defaultPage);
+            $this->view->generate("auth/access_denied.php");
     }
 	
     private function accessGranted()

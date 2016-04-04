@@ -616,6 +616,108 @@ class Controller_Admin extends Controller
         }
     }
 
+    /* VIDEO */
+    function action_lectures_video()
+    {
+        if ($this->accessGranted())
+        {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3]))
+            {
+                $data = $this->model->get_lecture_video($routes[3]);
+                $this->view->generateAdminTpl($this->defaultPage . "/video/item.php", $data);
+            } else {
+                $data = $this->model->get_lectures();
+                $this->view->generateAdminTpl($this->defaultPage . "/video/index.php", $data);
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_save_video()
+    {
+        if ($this->accessGranted() && !empty($_POST)) {
+            $result = $this->model->save_video();
+            if ($result) {
+                $data['message'] = "Вiдео прикрiплено!";
+                $this->view->generateAdminTpl($this->defaultPage . "/errors/info.php", $data);
+            } else {
+                $data['message'] = "Вiдео не створено!";
+                $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_news()
+    {
+        if ($this->accessGranted()) {
+            $base = Url::$baseurl;
+            $request_uri = str_replace($base, "", $_SERVER['REQUEST_URI']);
+            $routes = explode('/', $request_uri);
+            if (!empty($routes[3])) {
+                $data = $this->model->get_news_item($routes[3]);
+                if ($this->model->is_news_exists($routes[3])) {
+                    $this->view->generateAdminTpl($this->defaultPage . "/news/edit.php", $data);
+                } else {
+                    $data['message'] = "Новина не знайдена";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+            } else {
+                $data = $this->model->get_news();
+                $this->view->generateAdminTpl($this->defaultPage . "/news/index.php", $data);
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_add_news()
+    {
+        if ($this->accessGranted()) {
+            if (isset($_POST['add'])) {
+
+                $result = $this->model->add_news($_POST);
+                if ($result) {
+                    $data['message'] = "Новина успiшно створена!";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/info.php", $data);
+                } else {
+                    $data['message'] = "Помилка у створеннi новини!";
+                    $this->view->generateAdminTpl($this->defaultPage . "/errors/critical.php", $data);
+                }
+
+            } else {
+                $this->view->generateAdminTpl($this->defaultPage . "/news/add.php");
+            }
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+    function action_save_news()
+    {
+        if ($this->accessGranted()) {
+            $this->model->save_news($_POST);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+    /*******************/
+
     private function accessGranted()
     {
         return Users::getAdminLoginStatus()=="access_granted";

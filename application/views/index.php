@@ -16,7 +16,7 @@ $baseURI = Url::$baseurl;
 
 $login_status = Users::getUserLoginStatus();
 $uID = Users::getUID();
-
+$uName = $application->get_ulogin_by_id($uID);
 $prefix = $baseURI . "/templates/" . $template;
 
 // Site is on reconstruction

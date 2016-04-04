@@ -417,6 +417,25 @@ WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id ORDER BY fm.id
         return $result;
     }
 
+    function is_news_exists ($name) {
+        try {
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("SELECT title FROM news WHERE url=:url");
+            $stmt->bindParam(":url", $name);
+            $stmt->execute();
+            $result = $stmt->rowCount();
+            $result = $result > 0 ? true : false;
+            $_dbh = null;
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
     function add_page($data) {
         $url = Url::formURL($data['title']);
         if ($this->is_page_exists($url)) {
@@ -485,7 +504,7 @@ WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id ORDER BY fm.id
     {
         try
         {
-            $sql = "SELECT number, name FROM lectures ORDER BY number";
+            $sql = "SELECT number, name, id FROM lectures ORDER BY number";
 
             $db = Database::getInstance();
             $_dbh = $db->getConnection();
@@ -944,4 +963,161 @@ WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id ORDER BY fm.id
         }
     }
 
+    /* VIDEO */
+    function get_lecture_video($lecture_id)
+    {
+        try
+        {
+            $sql = "SELECT video_frame, video_id FROM video WHERE lecture_id = :lecture_id";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare($sql);
+            $stmt->bindParam(":lecture_id", $lecture_id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+
+        return $result;
+    }
+
+    function save_video()
+    {
+        try
+        {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("INSERT INTO video (lecture_id, video_frame, video_id)
+                                    VALUES (:lecture_id, :video_frame, :video_id)");
+
+            parse_str( parse_url( $_POST['video_frame'], PHP_URL_QUERY ), $arr );
+            $stmt->bindParam(":lecture_id", $_POST['lecture_id']);
+            $stmt->bindParam(":video_frame", $_POST['video_frame']);
+            $stmt->bindParam(":video_id", $arr['v']);
+
+            $result=$stmt->execute();
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+    function get_news()
+    {
+        try
+        {
+            $sql = "SELECT id, title, url, content, timestamp, status FROM news";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->query($sql);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+
+        return $result;
+    }
+
+    function get_news_item($url)
+    {
+        try
+        {
+            $sql = "SELECT * FROM news WHERE url = :url";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare($sql);
+            $stmt->bindParam(":url", $url);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+
+        return $result;
+    }
+
+    function add_news($data)
+    {
+        $url = Url::formURL($data['title']);
+        if ($this->is_news_exists($url)) {
+            return false;
+        }
+        try {
+            unset($data['add']);
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            // Get timestamp
+            $date = new DateTime();
+            $timestamp = $date->getTimestamp();
+
+            // Insert page
+
+            $stmt = $_dbh->prepare("INSERT INTO news (title, content, timestamp, status, comments_status, url, content_short)
+                                    VALUES (:title, :content, :timestamp, :status, :comments_status, :url, :content_short)");
+            $stmt->bindParam(":title", $data['title']);
+            $stmt->bindParam(":content", $data['content']);
+            $stmt->bindParam(":timestamp", $timestamp);
+            $stmt->bindParam(":status", $data['status']);
+            $stmt->bindParam(":comments_status", $data['comments_status']);
+            $stmt->bindParam(":url", $url);
+            $stmt->bindParam(":content_short", $data['content_short']);
+
+            $result = $stmt->execute();
+
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
+
+    function save_news($data)
+    {
+        try {
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare("UPDATE news SET `title`=:title, `content` = :content, `url` = :url, `comments_status` = :comments_status, `status` = :status, `content_short` = :content_short WHERE `id` = :id");
+
+            $url = Url::formURL($data['title']);
+            $stmt->bindParam(":title", $data['title']);
+            $stmt->bindParam(":content", $data['content']);
+            $stmt->bindParam(":url", $url);
+            $stmt->bindParam(":comments_status", $data['comments_status']);
+            $stmt->bindParam(":status", $data['status']);
+            $stmt->bindParam(":id", $data['id']);
+            $stmt->bindParam(":content_short", $data['content_short']);
+            $result = $stmt->execute();
+
+            $_dbh = null;
+
+        } catch (PDOException $e) {
+            throw new CustomException("Query error");
+        }
+        return $result;
+    }
 }

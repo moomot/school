@@ -48,7 +48,7 @@ class Model_Upanel extends Model
             $stmt->execute();
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($data == null) return false;
-            $sql = "SELECT number, name FROM lectures WHERE number IN (".$data['available_lections'].") ORDER BY number";
+            $sql = "SELECT number, name, video_id FROM lectures, video WHERE number IN (".$data['available_lections'].") AND lectures.id = video.lecture_id ORDER BY number";
             $query = $_dbh->query($sql);
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
         }

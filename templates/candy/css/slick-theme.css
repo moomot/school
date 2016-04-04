@@ -15,7 +15,7 @@
 [dir='rtl'] .slick-prev{right:-85px;left:auto;}
 .slick-next{right:-85px;}
 [dir='rtl'] .slick-next{right:auto;left:-85px;}
-.slick-slider{margin-top:42px;}
+.slick-slider{}
 .slick-disabled{opacity:0.6;}
 .slick-dots{display:block;padding:0;list-style:none;}
 .slick-dots li{position:relative;cursor:pointer;}

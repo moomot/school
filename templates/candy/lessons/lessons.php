@@ -19,12 +19,10 @@
 <hr>
 <div id="video_panel" class="panel panel-default">
     <div class="panel-heading">Урок 1. Загальнi положення</div>
-    <div class="panel-body">
-        <video width="774" height="397" controls>
-            <source src="<? echo $baseURI; ?>/assets/video/video1.mp4" type="video/mp4">
-            <source src="movie.ogg" type="video/ogg">
-            Your browser does not support the video tag.
-        </video>
+    <div class="panel-body text-center">
+        <iframe id="player" type="text/html" width="740" height="390"
+                src="http://www.youtube.com/embed/<?= $data[0]['video_id']; ?>?enablejsapi=1&origin=http://example.com"
+                frameborder="0"></iframe>
     </div>
 </div>
 <hr>
