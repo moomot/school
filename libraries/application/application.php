@@ -151,6 +151,7 @@ class Application
         } catch (PDOException $e) {
             throw new CustomException("Query error");
         }
+        if ($result == "") $result = "Гость";
         return $result;
     }
 

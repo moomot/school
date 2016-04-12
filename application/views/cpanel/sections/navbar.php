@@ -6,7 +6,6 @@
  * Time: 1:00 PM
  */
 ?>
-<?php if($login_status == "access_granted"): ?>
 <div class="navbar navbar-default navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-left">
@@ -25,4 +24,3 @@
         </div>
     </div>
 </div>
-<?php endif; ?>

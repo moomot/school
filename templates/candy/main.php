@@ -23,7 +23,7 @@ $prefix .= "/main_landing";
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <meta name="robots" content="INDEX, NOFOLLOW"/>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:image" content=""/>
     <meta property="og:title" content="<? echo $settings['title']; ?>"/>
     <meta property="og:description" content=""/>
@@ -63,6 +63,7 @@ $prefix .= "/main_landing";
 
     <script type="text/javascript" src="<? echo $prefix; ?>/jquery.fancybox.min.js"></script>
     <link rel="stylesheet" href="<? echo $prefix; ?>/jquery.fancybox.min.css" type="text/css" media="screen"/>
+    <link rel="shortcut icon" type="image/x-icon" href="<? echo $prefix; ?>/favicon.ico" />
 
 
     <script type="text/javascript">
@@ -157,7 +158,27 @@ $prefix .= "/main_landing";
 
 </head>
 <body style="" class="body-editor">
+<script type="text/javascript">(function() {
+        if (window.pluso)if (typeof window.pluso.start == "function") return;
+        if (window.ifpluso==undefined) { window.ifpluso = 1;
+            var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+            s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+            s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+            var h=d[g]('body')[0];
+            h.appendChild(s);
+        }})();</script>
+<style>
+    .pluso-wrapper{
+        position: fixed;
+        right: 10px;
+        top: 70px;
+        z-index: 9999
+    }
+</style>
+<div class="pluso-wrapper">
+    <div class="pluso" data-background="transparent" data-options="big,round,line,vertical,counter,theme=04" data-services="vkontakte,odnoklassniki,facebook,twitter,linkedin,google" data-user="1650209034"></div>
 
+</div>
 
 <style>
     i.ico {
@@ -401,9 +422,9 @@ $prefix .= "/main_landing";
 
 
         <div class="block block-form is-form" id="block-new427"
-             style="display: block;position: absolute;width: 340px;left: 101px;top: 3402px;height: auto;background-color: transparent;background-image: none;background-position: 0% 0%;background-repeat: no-repeat;opacity: NaN;">
-            <form action="http://testlpgenerator.ru/var/1185277/form/action/" method="post"
-                  enctype="multipart/form-data" class="our_form">
+             style="display: block;position: absolute;width: 340px;left: 101px;top: 3402px;height: auto;background-color: transparent;background-image: none;background-position: 0% 0%;background-repeat: no-repeat;opacity: ">
+            <form action="form/add" method="post"
+                  enctype="multipart/form-data" class="our_form" data-target="Безкоштовна консультацiя">
                 <style>#block-new427 label.main {
                         clear: left;
                         width: 100px;
@@ -420,7 +441,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 input::-webkit-input-placeholder {
@@ -439,7 +460,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 input:-moz-placeholder {
@@ -458,7 +479,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 input:-ms-input-placeholder {
@@ -477,7 +498,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 textarea::-webkit-input-placeholder {
@@ -496,7 +517,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 textarea:-moz-placeholder {
@@ -515,7 +536,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 textarea:-ms-input-placeholder {
@@ -534,7 +555,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 select::-webkit-input-placeholder {
@@ -553,7 +574,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 select:-moz-placeholder {
@@ -572,7 +593,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 select:-ms-input-placeholder {
@@ -591,7 +612,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 option::-webkit-input-placeholder {
@@ -610,7 +631,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 option:-moz-placeholder {
@@ -629,7 +650,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 option:-ms-input-placeholder {
@@ -648,7 +669,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 .input {
@@ -676,7 +697,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                         padding: 0 17px !important;;
                     }
 
@@ -738,7 +759,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new427 .input_block {
@@ -804,7 +825,7 @@ $prefix .= "/main_landing";
                 </style>
                 <div class="step step-0" data-button="" style="display: block">
                     <div class="cont " data-name="widget_0" data-ordering="0" data-label="Телефон" data-default=""
-                         data-type="email" data-email="1"><input type="email" class="input" name="widget_0" value=""
+                         ><input type="tel" class="input" name="widget_0" value=""
                                                                  placeholder="Телефон"/></div>
                 </div>
             </form>
@@ -884,8 +905,8 @@ $prefix .= "/main_landing";
 
 
         <div class="block block-form is-form" id="block-new429"
-             style="display: block;position: absolute;width: 340px;left: 101px;top: 5524px;height: auto;background-color: transparent;background-image: none;background-position: 0% 0%;background-repeat: no-repeat;opacity: NaN;">
-            <form action="http://testlpgenerator.ru/var/1185277/form/action/" method="post"
+             style="display: block;position: absolute;width: 340px;left: 101px;top: 5524px;height: auto;background-color: transparent;background-image: none;background-position: 0% 0%;background-repeat: no-repeat;opacity: ">
+            <form action="form/add" method="post"
                   enctype="multipart/form-data" class="our_form">
                 <style>#block-new429 label.main {
                         clear: left;
@@ -903,7 +924,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 input::-webkit-input-placeholder {
@@ -922,7 +943,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 input:-moz-placeholder {
@@ -941,7 +962,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 input:-ms-input-placeholder {
@@ -960,7 +981,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 textarea::-webkit-input-placeholder {
@@ -979,7 +1000,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 textarea:-moz-placeholder {
@@ -998,7 +1019,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 textarea:-ms-input-placeholder {
@@ -1017,7 +1038,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 select::-webkit-input-placeholder {
@@ -1036,7 +1057,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 select:-moz-placeholder {
@@ -1055,7 +1076,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 select:-ms-input-placeholder {
@@ -1074,7 +1095,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 option::-webkit-input-placeholder {
@@ -1093,7 +1114,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 option:-moz-placeholder {
@@ -1112,7 +1133,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 option:-ms-input-placeholder {
@@ -1131,7 +1152,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 .input {
@@ -1159,7 +1180,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                         padding: 0 17px !important;;
                     }
 
@@ -1221,7 +1242,7 @@ $prefix .= "/main_landing";
                         background-image: none;
                         background-position: 0% 0%;
                         background-repeat: no-repeat;
-                        opacity: NaN;;
+                        opacity: ;
                     }
 
                     #block-new429 .input_block {
@@ -1287,7 +1308,7 @@ $prefix .= "/main_landing";
                 </style>
                 <div class="step step-0" data-button="" style="display: block">
                     <div class="cont " data-name="widget_0" data-ordering="0" data-label="Телефон" data-default=""
-                         data-type="email" data-email="1"><input type="email" class="input" name="widget_0" value=""
+                         ><input type="tel" class="input" name="widget_0" value=""
                                                                  placeholder="Телефон"/></div>
                 </div>
             </form>
@@ -1596,25 +1617,25 @@ $prefix .= "/main_landing";
             <div class="widget popup">
                 <a class="close"></a>
 
-                <form method="post" target="iframe-block-new433">
+                <form method="post" action="form/send" class="submit_send_feedback" target="iframe-block-new433" data-target="Отримати вiдеоурок">
 
                     <div class=" line text b1457808255594">Дякуємо за зацікавленість! Отримайте Безкоштовно Перший
                         Відеоурок!
                     </div>
 
                     <div class=" line input b1457808255595"><input class=" " placeholder="Як до Вас звертатись*"
-                                                                   type="text" rel="name"
-                                                                   data-required="data-required"></input></div>
+                                                                   type="text" rel="name" name="name"
+                                                                   data-required="data-required"></div>
 
                     <div class=" line input b1457808486516"><input class=" " placeholder="Email*" type="text"
-                                                                   rel="email" data-required="data-required"></input>
+                                                                   rel="email" name="email" data-required="data-required">
                     </div>
 
                     <div class=" line input b1457808255596"><input class=" " placeholder="Телефон" type="text"
-                                                                   rel="phone"></input></div>
+                                                                   rel="phone" name="phone"></div>
 
                     <div class=" line submit b1457808255597">
-                        <input class=" " disabled="disabled" type="submit" value="Отримати безкоштовний урок"></input>
+                        <input class=" " disabled="disabled" type="submit" value="Отримати безкоштовний урок">
 
                     </div>
 
@@ -1878,7 +1899,7 @@ $prefix .= "/main_landing";
             <div class="widget popup">
                 <a class="close"></a>
 
-                <form method="post" target="iframe-block-new435">
+                <form method="post" target="iframe-block-new435" action="form/send"  data-target="Обрати автошколу">
 
                     <div class=" line text b1458061204752">Залишіть Контактні Дані і ми Безкоштовно Допоможемо Обрати
                         Автошколу
@@ -1886,18 +1907,18 @@ $prefix .= "/main_landing";
 
                     <div class=" line input b1458061204753"><input class=" " placeholder="Як до Вас звертатись*"
                                                                    type="text" rel="name"
-                                                                   data-required="data-required"></input></div>
+                                                                   data-required="data-required"></div>
 
                     <div class=" line input b1458061359317"><input class=" " placeholder="Мiсто*" type="text"
-                                                                   rel="general" data-required="data-required"></input>
+                                                                   rel="general" data-required="data-required">
                     </div>
 
                     <div class=" line input b1458061204754"><input class=" " placeholder="Телефон*" type="text"
                                                                    rel="phone" data-mask="(999) 999-99-99"
-                                                                   data-required="data-required"></input></div>
+                                                                   data-required="data-required"></div>
 
                     <div class=" line submit b1458061204755">
-                        <input class=" " disabled="disabled" type="submit" value="Обрати"></input>
+                        <input class=" " disabled="disabled" type="submit" value="Обрати">
 
                     </div>
 
@@ -2585,7 +2606,7 @@ $prefix .= "/main_landing";
 
         <div class="block block-text is-text" id="block-new85"
              style="display: block;position: absolute;background-position: 0% 0%;background-repeat: no-repeat;border-width: 1px;fix-position: on;top: 2594px;height: 45px;width: 815px;z-index: 141;anchor-id: #block-new85;left: 72px;">
-            <p><span style="font-size:28px;"><span style="color:#FFFFFF;"><strong>5 простих кроків для отримання
+            <p><span style="font-size:28px;"><span style="color:#FFFFFF;"><strong>6 простих кроків для отримання
                             водійського посвідчення</strong></span></span></p>
 
         </div>
@@ -3483,10 +3504,7 @@ $prefix .= "/main_landing";
 
 
         <div class="block block-button is-button" id="block-new60">
-            <a href="javascript:if(confirm(%27http://testlpgenerator.ru/pages/goto/3299617/?lpg_index=0  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27http://testlpgenerator.ru/pages/goto/3299617/?lpg_index=0%27"
-               target="_self"
-               data-label="teoria.pro"
-            >teoria.pro</a>
+            <a href="<? echo $baseURI; ?>">teoria.pro</a>
 
 
         </div>
@@ -3568,7 +3586,7 @@ $prefix .= "/main_landing";
                 });
 
                 jq_144('form.our_form').each(function () {
-                    var url = jq_144(this).attr('action') + "?d=" + location.hostname;
+                    var url = jq_144(this).attr('action');
                     jq_144(this).attr('action', url);
                 });
 

@@ -29,8 +29,26 @@ a img {border:0;}
 {
 	margin-top: 10px;
 }
-.login-form{
-    width: 400px;
+@media screen and (min-width: 768px)
+{
+    .login-form{
+        width: 400px;
+    }
+    .left_container, .center_container {
+        padding-left: 0 !important;
+    }
+}
+@media (max-width: 480px) {
+    .login-form {
+        margin: 0 10px !important;
+    }
+    .aligner {
+        min-height: 0 !important;
+    }
+    .go-test {
+        text-align: center !important;
+        margin-top: 5px !important;
+    }
 }
 .form-control {
     margin-bottom: 5px;
@@ -43,10 +61,6 @@ a img {border:0;}
 }
 .panel-link {
     width: 300px;
-}
-.left_container,
-.center_container{
-    padding-left: 0 !important;
 }
 .center_container {
     padding-right: 0 !important;

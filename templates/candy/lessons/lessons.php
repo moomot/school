@@ -20,9 +20,11 @@
 <div id="video_panel" class="panel panel-default">
     <div class="panel-heading">Урок 1. Загальнi положення</div>
     <div class="panel-body text-center">
-        <iframe id="player" type="text/html" width="740" height="390"
+        <div class="videoWrapper">
+        <iframe id="player" type="text/html"
                 src="http://www.youtube.com/embed/<?= $data[0]['video_id']; ?>?enablejsapi=1&origin=http://example.com"
                 frameborder="0"></iframe>
+            </div>
     </div>
 </div>
 <hr>

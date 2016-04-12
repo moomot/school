@@ -130,10 +130,8 @@ Popup.prototype.addSubmitListener = function(){
 
     var that = this;
 
-    var url = "/var/%@/form/action/".replace('%@', window.variantId) +
-        "?form_id=" + this.id.split('-')[1] + "&d=" + location.hostname;
-    this.url = url;
-    this.form.attr("action", url + "&callback=" + this.callbackName);
+    var action = this.form.attr("action");
+    this.url = action;
     this.form.find('input:not([type=submit]),textarea').each(function(){
         var $this = that.$(this);
         var name = $this.attr('rel')+ ':' + $this.attr('placeholder').replace('*', '');
@@ -223,18 +221,25 @@ Popup.prototype.getValues = function(){
             value: this.value
         });
     });
+    var target = this.form.data('target');
+    r.push({
+        role: "target",
+        label: "Источник",
+        value: target
+    });
     return r;
 };
 
 Popup.prototype.submit = function(){
     var that = this;
     this.$('#loading_bar').fadeIn();
+    console.log(JSON.stringify(this.getValues()));
+    var data='checks='+JSON.stringify(this.getValues());
     this.$.ajax({
         type: "POST",
         url: this.url,
-        data: JSON.stringify(this.getValues()),
-        contentType: 'application/json',
-        success: function(){
+        data: data,
+        success: function(data){
             that.afterSubmit();
         },
         error: function(){

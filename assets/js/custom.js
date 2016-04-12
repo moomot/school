@@ -41,6 +41,12 @@ $(document).ready(function () {
     // Save site settings
     $(".save_site_settings").submit(function (e) {
         e.preventDefault();
+        for (var i=0; i < tinyMCE.editors.length; i++){
+            var content = tinyMCE.editors[i].getContent();
+            $(this).find('textarea[name="'+tinyMCE.editors[i].id+'"]').val(content);
+        }
+        //var a = tinyMCE.activeEditor.getContent({format : 'raw'});
+        //$(this).find("textarea").val(a);
 
         var _this = $(this);
         var action = _this.attr('action');

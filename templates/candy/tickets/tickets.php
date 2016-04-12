@@ -24,7 +24,7 @@
                 <td>
                     <div class="row">
                         <div class="col-lg-8 text-left ticket_title"><? echo $item['name'] ?></div>
-                        <div class="col-lg-4 text-right"><a href="choose_ticket/<? echo $item['id'] ?>" class="btn btn-default btn-success">Пройти тест</a></div>
+                        <div class="col-lg-4 text-right go-test"><a href="choose_ticket/<? echo $item['id'] ?>" class="btn btn-default btn-success">Пройти тест</a></div>
                     </div>
                 </td>
             </tr>

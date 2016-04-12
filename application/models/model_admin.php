@@ -1120,4 +1120,28 @@ WHERE f.id = :id AND fm.ticket_id = f.id AND tmp.uid = fm.user_id ORDER BY fm.id
         }
         return $result;
     }
+
+
+    function get_forms()
+    {
+        try
+        {
+            $sql = "SELECT * FROM form";
+
+            $db = Database::getInstance();
+            $_dbh = $db->getConnection();
+            $_dbh->exec('SET NAMES utf8');
+
+            $stmt = $_dbh->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            throw new CustomException("Query error");
+        }
+
+        return $result;
+    }
+
 }

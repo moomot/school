@@ -17,42 +17,46 @@ $prefix = $baseURI."/assets";
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/style.css"/>
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/bootstrap.css"/>
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="<? echo $prefix; ?>/img/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <?php include "sections/navbar.php"; ?>
 <div class="container">
-   <div class="col-md-3">
-       <div class="well well-sm">
-           <?
-           $nav = new Nav($baseURI);
-           $nav->setModel(
-               [
-                   "url" => '/cpanel',
-                   "content" => "<span class=\"glyphicon glyphicon-home\"></span> Головна"
-               ],
-               [
-                   "url" => "/cpanel/list",
-                   "content" => "<span class=\"glyphicon glyphicon-list\"></span> Список студентiв"
-               ],
-               [
-                   "url" => "/cpanel/messages",
-                   "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Повiдомлення"
-               ],
-               [
-                   "url" => "/cpanel/stat",
-                   "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Статистика студентiв"
-               ],
-               [
-                   "url" => "/cpanel/feedback",
-                   "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Зворотнiй зв'язок"
-               ]
-           )->render("nav nav-pills nav-stacked");
-           ?>
-       </div>
-   </div>
-    <div class="col-md-9 left_container">
-        <div class="right-panel">
-            <?php include $this->getPrivateView(); ?>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="well well-sm">
+                <?
+                $nav = new Nav($baseURI);
+                $nav->setModel(
+                    [
+                        "url" => '/cpanel',
+                        "content" => "<span class=\"glyphicon glyphicon-home\"></span> Головна"
+                    ],
+                    [
+                        "url" => "/cpanel/list",
+                        "content" => "<span class=\"glyphicon glyphicon-list\"></span> Список студентiв"
+                    ],
+                    [
+                        "url" => "/cpanel/messages",
+                        "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Повiдомлення"
+                    ],
+                    [
+                        "url" => "/cpanel/stat",
+                        "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Статистика студентiв"
+                    ],
+                    [
+                        "url" => "/cpanel/feedback",
+                        "content" => "<span class=\"glyphicon glyphicon-tasks\"></span> Зворотнiй зв'язок"
+                    ]
+                )->render("nav nav-pills nav-stacked");
+                ?>
+            </div>
+        </div>
+        <div class="col-md-9 left_container">
+            <div class="right-panel">
+                <?php include $this->getPrivateView(); ?>
+            </div>
         </div>
     </div>
 </div>

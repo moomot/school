@@ -717,6 +717,20 @@ class Controller_Admin extends Controller
             $this->redirect_to_main("/" . $this->defaultPage);
         }
     }
+
+    function action_forms()
+    {
+        if ($this->accessGranted()) {
+            $data = $this->model->get_forms();
+            $this->view->generateAdminTpl($this->defaultPage . "/forms/index.php", $data);
+        }
+        else
+        {
+            $this->redirect_to_main("/" . $this->defaultPage);
+        }
+    }
+
+
     /*******************/
 
     private function accessGranted()

@@ -17,7 +17,7 @@ ob_clean();
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/slick.css"/>
     <link rel="stylesheet" href="<? echo $prefix; ?>/css/slick-theme.css"/>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Script loading -->
     <script src="<? echo $prefix; ?>/js/jquery-1.11.1.min.js"></script>
 </head>
@@ -26,28 +26,28 @@ ob_clean();
 <div class="container">
     <div class="aligner">
         <div class="row">
-            <div class="center-block login-form">
-                <div class="well">
-                    <form class="form-signin" method="POST" action="<? echo $baseURI."/upanel/login"; ?>" name="do_login">
-                        <h2 class="form-signin-heading">
-                            <?php if($login_status=="access_denied"): ?>
-                                <p style="color:red">Логин и/или пароль введены неверно.</p>
-                                <?php Session::destroy(); ?>
-                            <?php endif; ?>
-                        </h2>
-                        <label for="inputEmail" class="sr-only">Login</label>
-                        <input type="text" name="login" class="form-control" placeholder="Логин" required autofocus>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Пароль" required>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="remember-me"> Запомнить?
-                            </label>
-                        </div>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Авторизация</button>
-                    </form>
+                <div class="center-block login-form">
+                    <div class="well">
+                        <form class="form-signin" method="POST" action="<? echo $baseURI."/upanel/login"; ?>" name="do_login">
+                            <h2 class="form-signin-heading">
+                                <?php if($login_status=="access_denied"): ?>
+                                    <p style="color:red">Логин и/или пароль введены неверно.</p>
+                                    <?php Session::destroy(); ?>
+                                <?php endif; ?>
+                            </h2>
+                            <label for="inputEmail" class="sr-only">Login</label>
+                            <input type="text" name="login" class="form-control" placeholder="Логин" required autofocus>
+                            <label for="inputPassword" class="sr-only">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Пароль" required>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="remember-me"> Запомнить?
+                                </label>
+                            </div>
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Авторизация</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
         </div>
 
     </div>
